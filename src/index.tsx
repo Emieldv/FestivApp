@@ -4,13 +4,19 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import "./normalize.css";
 import "./index.css";
+import { ScheduleProvider } from "./lib/context/Schedule";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ScheduleProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ScheduleProvider>
   </React.StrictMode>
 );
 

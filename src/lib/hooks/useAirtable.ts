@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 const API = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_KEY}`;
 
-export const useAirTable = (url: string, fields?: string[]) => {
+export function useAirTable<Type>(url: string, fields?: string[]) {
   const [state, setState] = useState<{
-    data: any | null;
+    data: Type | null;
     error: any | null;
     loading: boolean;
   }>({
@@ -42,4 +42,4 @@ export const useAirTable = (url: string, fields?: string[]) => {
   }, [url, fields]);
 
   return state;
-};
+}

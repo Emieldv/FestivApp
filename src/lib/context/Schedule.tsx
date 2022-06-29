@@ -1,17 +1,18 @@
-import { Children, createContext, FC, ReactNode, useContext } from "react";
+import { createContext, FC, ReactNode, useMemo } from "react";
+import { ErrorScreen } from "../../components/ErrorScreen";
+import { Loader } from "../../components/Loader";
+import {
+  Day,
+  DayFull,
+  Gig,
+  IScheduleContext,
+  Stage,
+} from "../../interfaces/data";
 import { useAirTable } from "../hooks/useAirtable";
 
-export const ScheduleContext = createContext({
-  loading: true,
-  data: {
-    stages: null,
-    days: null,
-    gigs: null,
-  },
-});
-
-// TODO Fix Offline functionality
-// TODO provide data
+export const ScheduleContext = createContext<IScheduleContext | undefined>(
+  undefined
+);
 
 interface ScheduleProviderProps {
   children: ReactNode;
@@ -22,31 +23,52 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
     data: stages,
     error: stagesError,
     loading: stagesLoading,
-  } = useAirTable("/stages");
+  } = useAirTable<Stage[]>("/stages");
   const {
     data: days,
     error: daysError,
     loading: daysLoading,
-  } = useAirTable("/days");
+  } = useAirTable<Day[]>("/days");
   const {
     data: gigs,
     error: gigsError,
     loading: gigsLoading,
-  } = useAirTable("/gigs");
+  } = useAirTable<Gig[]>("/gigs");
 
-  // TODO fix LoadingState
-  if (gigsLoading && daysLoading && stagesLoading) {
-    return null;
+  // Still loading?
+  if (gigsLoading || daysLoading || stagesLoading) {
+    return <Loader />;
   }
+
+  // Any errors?
+  // TODO better error handling
+  if (gigsError || daysError || stagesError) {
+    return <ErrorScreen error="Error retrieving data" />;
+  }
+
+  // Link Data
+  const fullDays: DayFull[] = days!.map((day) => ({
+    ...day,
+    stages: stages!.map((stage) => ({
+      ...stage,
+      gigs: gigs!.filter(
+        (gig) => gig.stage[0] === stage.id && gig.day[0] === day.id
+      ),
+    })),
+  }));
+
+  // TODO Fix Offline functionality
 
   return (
     <ScheduleContext.Provider
       value={{
-        loading: true,
+        rawData: {
+          stages: stages!,
+          days: days!,
+          gigs: gigs!,
+        },
         data: {
-          stages: null,
-          days: null,
-          gigs: null,
+          days: fullDays,
         },
       }}
     >

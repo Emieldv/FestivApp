@@ -1,20 +1,33 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { Stage } from "../../interfaces/data";
+import { StageFull } from "../../interfaces/data";
+import { calculateGridRows, calculateSlotHeight } from "../../lib/calculate";
+import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
 import { ScheduleSlot } from "./ScheduleSlot";
+import { ScheduleTimeline } from "./ScheduleTimeline";
 
 interface ScheduleColumnProps {
-  stage: Stage;
+  stage: StageFull;
 }
 
 export const ScheduleColumn: FC<ScheduleColumnProps> = ({ stage }) => {
+  const currentDay = useCurrentDay()!;
+
   return (
     <Column>
       <Header>
         <p>{stage.name}</p>
       </Header>
-      <ScheduleBody hours={10}>
-        <ScheduleSlot band={"test"} />
+      <ScheduleBody
+        rows={calculateGridRows(
+          new Date(currentDay.start),
+          new Date(currentDay.end)
+        )}
+      >
+        {stage.gigs.map((gig, key) => (
+          <ScheduleSlot key={key} band={gig} />
+        ))}
+        <ScheduleTimeline />
       </ScheduleBody>
     </Column>
   );
@@ -28,10 +41,10 @@ const Header = styled.div`
   background-color: white;
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 100;
   color: black;
   padding: 10px;
-  border-right: 1px solid #4d4d4d;
+  border-right: 1px solid #474747;
   p {
     margin: 0;
     text-align: center;
@@ -39,11 +52,10 @@ const Header = styled.div`
 `;
 
 interface ScheduleBodyProps {
-  hours: number;
+  rows: number;
 }
 
 const ScheduleBody = styled.div<ScheduleBodyProps>`
-  border-right: 1px solid #4d4d4d;
   display: grid;
-  grid-template-rows: repeat(${({ hours }) => hours * 12}, 10px);
+  grid-template-rows: repeat(${({ rows }) => rows}, ${calculateSlotHeight()});
 `;

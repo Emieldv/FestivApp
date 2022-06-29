@@ -1,25 +1,27 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useAirTable } from "../lib/hooks/useAirtable";
 import { ErrorScreen } from "../components/ErrorScreen";
-import { Loader } from "../components/Loader";
 import { ScheduleColumn } from "../components/schedule/ScheduleColumn";
-import { Stage } from "../interfaces/data";
+import { ScheduleTimes } from "../components/schedule/ScheduleTimes";
+import { useSchedule } from "../lib/hooks/useSchedule";
 
 export const Schedule = () => {
-  const { data: stages, error, loading } = useAirTable("/stages");
+  const { data } = useSchedule();
+  const { scheduleId } = useParams();
+  const day = data.days.find((day) => day.id === scheduleId);
 
-  if (loading) return <Loader />;
-
-  if (error) return <ErrorScreen error={error.message} />;
+  if (!day) {
+    return <ErrorScreen error="Error: Schedule not found" />;
+  }
 
   return (
     <Container>
-      <ScheduleContainer columns={stages.length}>
-        {stages.map((stage: Stage) => (
-          <ScheduleColumn stage={stage} />
+      <ScheduleContainer columns={day.stages.length}>
+        <ScheduleTimes />
+        {day.stages.map((stage, key) => (
+          <ScheduleColumn key={key} stage={stage} />
         ))}
       </ScheduleContainer>
-      {/* TODO add timestamps here */}
     </Container>
   );
 };
@@ -34,6 +36,7 @@ interface ScheduleContainerProps {
 }
 
 const ScheduleContainer = styled.div<ScheduleContainerProps>`
+  min-width: calc(${({ columns }) => columns} * 200px);
   display: grid;
-  grid-template-columns: repeat(${({ columns }) => columns}, auto);
+  grid-template-columns: 0px repeat(${({ columns }) => columns}, auto);
 `;
