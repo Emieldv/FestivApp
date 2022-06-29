@@ -18,6 +18,9 @@ export const Schedule = () => {
     <Container>
       <ScheduleContainer columns={day.stages.length}>
         <ScheduleTimes />
+        <ScheduleColumn
+          stage={{ createdTime: "ss", id: "ss", name: "Blabla", gigs: [] }}
+        />
         {day.stages.map((stage, key) => (
           <ScheduleColumn key={key} stage={stage} />
         ))}
@@ -38,5 +41,5 @@ interface ScheduleContainerProps {
 const ScheduleContainer = styled.div<ScheduleContainerProps>`
   min-width: calc(${({ columns }) => columns} * 200px);
   display: grid;
-  grid-template-columns: 0px repeat(${({ columns }) => columns}, auto);
+  grid-template-columns: 0px 60px repeat(${({ columns }) => columns}, auto);
 `;
