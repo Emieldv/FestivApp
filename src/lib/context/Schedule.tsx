@@ -35,12 +35,14 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
     loading: gigsLoading,
   } = useAirTable<Gig[]>("/gigs");
 
+  // Check if the app is offline
   if (!window.navigator.onLine) {
     const storage = localStorage.getItem("localData");
 
     if (!storage) {
-      // TODO better error message
-      return <ErrorScreen error="Error retrieving data" />;
+      return (
+        <ErrorScreen error="Data cache empty, please connect to the internet to store data for offline usage" />
+      );
     }
 
     const value = JSON.parse(storage);
@@ -57,7 +59,6 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
   }
 
   // Any errors?
-  // TODO better error handling
   if (gigsError || daysError || stagesError) {
     return <ErrorScreen error="Error retrieving data" />;
   }
@@ -89,8 +90,6 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
   };
 
   localStorage.setItem("localData", JSON.stringify(value));
-
-  // TODO Fix Offline functionality
 
   return (
     <ScheduleContext.Provider value={value}>

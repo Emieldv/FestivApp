@@ -13,13 +13,13 @@ interface TopNavigationProps {
 export const TopNavigation: FC<TopNavigationProps> = ({ title, url }) => {
   const navigate = useNavigate();
   const { rawData } = useSchedule();
-  const { scheduleId } = useParams();
+  const { dayId } = useParams();
 
   const options = rawData.days.map((day) => ({
     value: day.id,
     label: day.name,
   }));
-  const value = options.find((option) => scheduleId === option.value);
+  const value = options.find((option) => dayId === option.value);
 
   const handleChange = (option: any) => {
     navigate(`..${url}/${option.value}`);
@@ -33,16 +33,17 @@ export const TopNavigation: FC<TopNavigationProps> = ({ title, url }) => {
         value={value}
         onChange={handleChange}
         styles={selectStyle}
+        isSearchable={false}
       />
     </Container>
   );
 };
 
 const Container = styled.div`
-  height: ${sizes.navigationHeight};
+  height: ${sizes.topNavigationHeight};
   display: flex;
   align-items: center;
-  background-color: ${colors.dark};
+  background-color: ${colors.lessDark};
   padding: 0 20px;
 
   h1 {

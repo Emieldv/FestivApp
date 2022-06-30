@@ -1,19 +1,17 @@
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { ErrorScreen } from "../components/ErrorScreen";
+import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { TopNavigation } from "../components/navigation/TopNavigation";
 import { ScheduleColumn } from "../components/schedule/ScheduleColumn";
 import { ScheduleTimes } from "../components/schedule/ScheduleTimes";
 import { sizes } from "../lib/constants";
-import { useSchedule } from "../lib/hooks/useSchedule";
+import { useCurrentDay } from "../lib/hooks/useCurrentDay";
 
 export const Schedule = () => {
-  const { data } = useSchedule();
-  const { scheduleId } = useParams();
-  const day = data.days.find((day) => day.id === scheduleId);
+  const day = useCurrentDay();
 
   if (!day) {
-    return <ErrorScreen error="Error: Schedule not found" />;
+    return <ErrorScreen error="Error | Schedule not found" />;
   }
 
   return (
@@ -30,13 +28,16 @@ export const Schedule = () => {
           ))}
         </ScheduleContainer>
       </Container>
+      <BottomNavigation />
     </>
   );
 };
 
 const Container = styled.div`
   overflow: scroll;
-  height: calc(100vh - ${sizes.navigationHeight});
+  height: calc(
+    100vh - ${sizes.topNavigationHeight} - ${sizes.bottomNavigationHeight}
+  );
 `;
 
 interface ScheduleContainerProps {
