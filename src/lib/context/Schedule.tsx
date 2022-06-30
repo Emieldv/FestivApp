@@ -46,8 +46,12 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
     return <ErrorScreen error="Error retrieving data" />;
   }
 
+  const sortedDays = days!.sort(
+    (x, y) => new Date(x.start).getTime() - new Date(y.start).getTime()
+  );
+
   // Link Data
-  const fullDays: DayFull[] = days!.map((day) => ({
+  const fullDays: DayFull[] = sortedDays.map((day) => ({
     ...day,
     stages: stages!.map((stage) => ({
       ...stage,
@@ -64,7 +68,7 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
       value={{
         rawData: {
           stages: stages!,
-          days: days!,
+          days: sortedDays!,
           gigs: gigs!,
         },
         data: {

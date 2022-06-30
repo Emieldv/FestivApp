@@ -19,7 +19,7 @@ export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
   );
   return (
     <Slot start={start} end={end}>
-      <p>{band.name}</p>
+      <h3>{band.name}</h3>
       <p>
         {format(new Date(band.start), "HH:mm")} -{" "}
         {format(new Date(band.end), "HH:mm")}
@@ -34,16 +34,34 @@ interface SlotProps {
 }
 
 const Slot = styled.div<SlotProps>`
-  background-color: black;
+  background-color: ${colors.dark};
   padding: 10px;
-  color: white;
+  color: ${colors.white};
   grid-row-start: ${({ start }) => start + 1};
   grid-row-end: ${({ end }) => end + 1};
   margin: 1px 15px 0 15px;
   z-index: 20;
-  border-left: 3px solid ${colors.theme};
+  border-left: 3px solid ${colors.primary};
+  border-radius: 2px;
+
+  h3 {
+    font-size: 21px;
+    margin: 0;
+    color: ${colors.primary};
+  }
 
   p {
     margin: 0;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  &.liked {
+    background-color: ${colors.primary};
+    color: ${colors.lightest};
+
+    h3 {
+      color: ${colors.lightest};
+    }
   }
 `;
