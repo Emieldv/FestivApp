@@ -1,6 +1,8 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "id": "festivapp",
+  "short_name": "Festivapp",
+  "name": "Festival schedule app",
+  "description": "An app to visualize festival schedules using Airtable",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,7 +21,7 @@
     }
   ],
   "start_url": ".",
-  "display": "fullscreen",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "display": "standalone",
+  "theme_color": "#bf8761",
+  "background_color": "#110e13"
 }
