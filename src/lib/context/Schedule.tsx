@@ -35,6 +35,22 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
     loading: gigsLoading,
   } = useAirTable<Gig[]>("/gigs");
 
+  if (!window.navigator.onLine) {
+    const storage = localStorage.getItem("localData");
+
+    if (!storage) {
+      // TODO better error message
+      return <ErrorScreen error="Error retrieving data" />;
+    }
+
+    const value = JSON.parse(storage);
+    return (
+      <ScheduleContext.Provider value={value}>
+        {children}
+      </ScheduleContext.Provider>
+    );
+  }
+
   // Still loading?
   if (gigsLoading || daysLoading || stagesLoading) {
     return <Loader />;
@@ -61,21 +77,23 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
     })),
   }));
 
+  const value = {
+    rawData: {
+      stages: stages!,
+      days: sortedDays!,
+      gigs: gigs!,
+    },
+    data: {
+      days: fullDays,
+    },
+  };
+
+  localStorage.setItem("localData", JSON.stringify(value));
+
   // TODO Fix Offline functionality
 
   return (
-    <ScheduleContext.Provider
-      value={{
-        rawData: {
-          stages: stages!,
-          days: sortedDays!,
-          gigs: gigs!,
-        },
-        data: {
-          days: fullDays,
-        },
-      }}
-    >
+    <ScheduleContext.Provider value={value}>
       {children}
     </ScheduleContext.Provider>
   );
