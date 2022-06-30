@@ -2,6 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { calculateTimelines } from "../../lib/calculate";
 import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
+import { sizes } from "../../lib/constants";
 
 export const ScheduleTimeline: FC = () => {
   const day = useCurrentDay()!;
@@ -31,7 +32,7 @@ const Hour = styled.div`
 `;
 
 const HalfHour = styled.div<{ color: string }>`
-  height: 59px;
+  height: ${sizes.hourHeight / 2 - 1}px;
   background-color: ${({ color }) =>
     color === "light" ? "#808080" : "#494949"};
 

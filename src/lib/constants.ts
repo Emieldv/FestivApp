@@ -5,6 +5,6 @@ export const colors = {
 };
 
 export const sizes = {
-  hourHeight: 120,
+  hourHeight: 180,
   slotSize: parseInt(process.env.REACT_APP_SLOT_SIZE || "5") || 5,
 };
