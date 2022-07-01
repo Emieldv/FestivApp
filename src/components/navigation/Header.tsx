@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors, sizes } from "../../lib/constants";
 import Select, { StylesConfig } from "react-select";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSchedule } from "../../lib/hooks/useSchedule";
+import { useData } from "../../lib/hooks/useSchedule";
 
 interface TopNavigationProps {
   title: string;
@@ -17,7 +17,7 @@ export const Header: FC<TopNavigationProps> = ({
   select = false,
 }) => {
   const navigate = useNavigate();
-  const { rawData } = useSchedule();
+  const { rawData } = useData();
   const { dayId } = useParams();
 
   const options = rawData.days.map((day) => ({

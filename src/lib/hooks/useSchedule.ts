@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { ScheduleContext } from "../context/Schedule";
+import { DataContext } from "../context/Schedule";
 
-export const useSchedule = () => {
-  const scheduleContext = useContext(ScheduleContext);
-  if (!scheduleContext) {
+export const useData = () => {
+  const dataContext = useContext(DataContext);
+  if (!dataContext) {
     throw new Error("No scheduleProvider detected");
   }
 
-  return scheduleContext;
+  return dataContext;
 };

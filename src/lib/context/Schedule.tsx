@@ -10,15 +10,15 @@ import {
 } from "../../interfaces/data";
 import { useAirTable } from "../hooks/useAirtable";
 
-export const ScheduleContext = createContext<IScheduleContext | undefined>(
+export const DataContext = createContext<IScheduleContext | undefined>(
   undefined
 );
 
-interface ScheduleProviderProps {
+interface DataProviderProps {
   children: ReactNode;
 }
 
-export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
+export const DataProvider: FC<DataProviderProps> = ({ children }) => {
   const {
     data: stages,
     error: stagesError,
@@ -47,9 +47,7 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
 
     const value = JSON.parse(storage);
     return (
-      <ScheduleContext.Provider value={value}>
-        {children}
-      </ScheduleContext.Provider>
+      <DataContext.Provider value={value}>{children}</DataContext.Provider>
     );
   }
 
@@ -91,9 +89,5 @@ export const ScheduleProvider: FC<ScheduleProviderProps> = ({ children }) => {
 
   localStorage.setItem("localData", JSON.stringify(value));
 
-  return (
-    <ScheduleContext.Provider value={value}>
-      {children}
-    </ScheduleContext.Provider>
-  );
+  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };

@@ -4,7 +4,7 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import "./normalize.css";
 import "./index.css";
-import { ScheduleProvider } from "./lib/context/Schedule";
+import { DataProvider } from "./lib/context/Schedule";
 import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
@@ -12,11 +12,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ScheduleProvider>
+    <DataProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </ScheduleProvider>
+    </DataProvider>
   </React.StrictMode>
 );
 
