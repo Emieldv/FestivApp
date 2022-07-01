@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Home as HomePage } from "../../pages/Home";
 import { Grid, Home, Icon, Layout, Map } from "react-feather";
-import { useSchedule } from "./useSchedule";
+import { useData } from "./useSchedule";
 import { Schedule } from "../../pages/Schedule";
 import { LineUp } from "../../pages/LineUp";
 import { Map as MapPage } from "../../pages/Map";
@@ -16,7 +16,7 @@ export interface NavigationItem {
 }
 
 export function useNavigationItems(): NavigationItem[] {
-  const { rawData } = useSchedule();
+  const { rawData } = useData();
 
   return [
     {

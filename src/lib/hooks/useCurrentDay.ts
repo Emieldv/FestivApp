@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useSchedule } from "./useSchedule";
+import { useData } from "./useSchedule";
 
 export function useCurrentDay() {
-  const { data } = useSchedule();
+  const { data } = useData();
   const { dayId } = useParams();
   return data.days.find((day) => day.id === dayId);
 }
