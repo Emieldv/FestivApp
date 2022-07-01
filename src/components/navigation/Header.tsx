@@ -7,10 +7,15 @@ import { useSchedule } from "../../lib/hooks/useSchedule";
 
 interface TopNavigationProps {
   title: string;
-  url: string;
+  url?: string;
+  select?: boolean;
 }
 
-export const TopNavigation: FC<TopNavigationProps> = ({ title, url }) => {
+export const Header: FC<TopNavigationProps> = ({
+  title,
+  url,
+  select = false,
+}) => {
   const navigate = useNavigate();
   const { rawData } = useSchedule();
   const { dayId } = useParams();
@@ -28,19 +33,21 @@ export const TopNavigation: FC<TopNavigationProps> = ({ title, url }) => {
   return (
     <Container>
       <h1>{title}</h1>
-      <Select
-        options={options}
-        value={value}
-        onChange={handleChange}
-        styles={selectStyle}
-        isSearchable={false}
-      />
+      {select && (
+        <Select
+          options={options}
+          value={value}
+          onChange={handleChange}
+          styles={selectStyle}
+          isSearchable={false}
+        />
+      )}
     </Container>
   );
 };
 
 const Container = styled.div`
-  height: ${sizes.topNavigationHeight};
+  height: ${sizes.pageHeaderHeight};
   display: flex;
   align-items: center;
   background-color: ${colors.lessDark};

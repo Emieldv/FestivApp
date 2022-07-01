@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { ErrorScreen } from "../components/ErrorScreen";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
-import { TopNavigation } from "../components/navigation/TopNavigation";
+import { Header } from "../components/navigation/Header";
 import { sizes } from "../lib/constants";
 import { useCurrentDay } from "../lib/hooks/useCurrentDay";
 
@@ -15,7 +15,7 @@ export const LineUp: FC = () => {
 
   return (
     <>
-      <TopNavigation title="My line Up" url="/lineup" />
+      <Header title="My line Up" url="/lineup" select />
       <Container>
         <p>Personal lineup</p>
         <p>View as list view</p>
@@ -28,7 +28,7 @@ export const LineUp: FC = () => {
 
 const Container = styled.div`
   height: calc(
-    100vh - ${sizes.bottomNavigationHeight} - ${sizes.topNavigationHeight}
+    100vh - ${sizes.bottomNavigationHeight} - ${sizes.pageHeaderHeight}
   );
 
   p {
