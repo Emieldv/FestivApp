@@ -8,8 +8,8 @@ function App() {
   return (
     <main>
       <Routes>
-        {navigationItems.map((item) => (
-          <Route path={item.baseUrl} element={<item.component />} />
+        {navigationItems.map((item, index) => (
+          <Route key={index} path={item.baseUrl} element={<item.component />} />
         ))}
         <Route path="*" element={<ErrorScreen error="Page not found" />} />
       </Routes>

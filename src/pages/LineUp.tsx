@@ -15,8 +15,12 @@ export const LineUp: FC = () => {
 
   return (
     <>
-      <TopNavigation title="Line Up" url="/lineup" />
-      <Container></Container>
+      <TopNavigation title="My line Up" url="/lineup" />
+      <Container>
+        <p>Personal lineup</p>
+        <p>View as list view</p>
+        <p>View as schedule</p>
+      </Container>
       <BottomNavigation />
     </>
   );
@@ -26,4 +30,9 @@ const Container = styled.div`
   height: calc(
     100vh - ${sizes.bottomNavigationHeight} - ${sizes.topNavigationHeight}
   );
+
+  p {
+    margin: 0;
+    color: white;
+  }
 `;

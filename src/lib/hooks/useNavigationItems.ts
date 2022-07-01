@@ -32,7 +32,7 @@ export function useNavigationItems(): NavigationItem[] {
       component: Schedule,
     },
     {
-      name: "Line up",
+      name: "My line up",
       icon: Grid,
       baseUrl: "/lineup/:dayId",
       url: `/lineup/${rawData.days[0].id}`,

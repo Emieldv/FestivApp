@@ -12,8 +12,8 @@ export const BottomNavigation = () => {
 
   return (
     <Container navigationItems={navigationItems}>
-      {navigationItems.map((item) => (
-        <ItemContainer to={item.url}>
+      {navigationItems.map((item, index) => (
+        <ItemContainer key={index} to={item.url}>
           <item.icon />
           <p>{item.name}</p>
         </ItemContainer>

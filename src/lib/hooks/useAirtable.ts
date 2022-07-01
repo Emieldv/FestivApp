@@ -1,30 +1,72 @@
 import { useEffect, useState } from "react";
 
+interface AirtableData<Type> {
+  data: Type | null;
+  error: any | null;
+  loading: boolean;
+}
+
 const API = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_KEY}`;
 
 export function useAirTable<Type>(url: string, fields?: string[]) {
-  const [state, setState] = useState<{
-    data: Type | null;
-    error: any | null;
-    loading: boolean;
-  }>({
+  const [state, setState] = useState<AirtableData<Type>>({
     data: null,
     error: null,
     loading: true,
   });
 
   useEffect(() => {
-    const filter = fields?.map((field) => "fields%5B%5D=" + field).join("&");
+    const fn = async () => {
+      const filter = fields?.map((field) => "fields%5B%5D=" + field).join("&");
 
-    fetch(`${API}${url}${fields ? "?" + filter : ""}`, {
-      headers: { Authorization: "Bearer keyWFjC7AsnLrN0QT" },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.error) {
-          setState({ data: null, error: json.error, loading: false });
+      const result = await fetcher<Type>(url, filter);
+      setState(result);
+    };
+
+    fn();
+  }, [url, fields]);
+
+  return state;
+}
+
+async function fetcher<Type>(
+  url: string,
+  filter: string | undefined
+): Promise<AirtableData<Type>> {
+  const data = fetch(`${API}${url}${filter ? "?" + filter : ""}`, {
+    // TODO set bearer in env
+    headers: { Authorization: "Bearer keyWFjC7AsnLrN0QT" },
+  })
+    .then((response) => response.json())
+    .then(async (json) => {
+      if (json.error) {
+        return { data: null, error: json.error, loading: false };
+      } else {
+        // Detect offset
+        if (json.offset) {
+          let recordsArray = json.records;
+
+          await fetch(
+            `${API}${url}?offset=${json.offset}${filter ? "&" + filter : ""}`,
+            {
+              headers: { Authorization: "Bearer keyWFjC7AsnLrN0QT" },
+            }
+          )
+            .then((response) => response.json())
+            .then((json) => recordsArray.push(...json.records));
+
+          return {
+            data: recordsArray.map(
+              ({ fields, ...rest }: { fields: any; rest: any }) => ({
+                ...rest,
+                ...fields,
+              })
+            ),
+            error: null,
+            loading: false,
+          };
         } else {
-          setState({
+          return {
             data: json.records.map(
               ({ fields, ...rest }: { fields: any; rest: any }) => ({
                 ...rest,
@@ -33,13 +75,13 @@ export function useAirTable<Type>(url: string, fields?: string[]) {
             ),
             error: null,
             loading: false,
-          });
+          };
         }
-      })
-      .catch((error) => {
-        setState({ data: null, error: error, loading: false });
-      });
-  }, [url, fields]);
+      }
+    })
+    .catch((error) => {
+      return { data: null, error: error, loading: false };
+    });
 
-  return state;
+  return await data;
 }

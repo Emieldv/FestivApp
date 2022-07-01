@@ -9,6 +9,7 @@ export const Home: FC = () => {
       <Container>
         <p>Banner</p>
         <p>20 days until Alcatraz</p>
+        <p>Next gig:</p>
         <p>External links?</p>
         <p>extra filler content</p>
       </Container>
