@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ErrorScreen } from "../components/ErrorScreen";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
-import { TopNavigation } from "../components/navigation/TopNavigation";
+import { Header } from "../components/navigation/Header";
 import { ScheduleColumn } from "../components/schedule/ScheduleColumn";
 import { ScheduleTimes } from "../components/schedule/ScheduleTimes";
 import { sizes } from "../lib/constants";
@@ -14,9 +14,11 @@ export const Schedule = () => {
     return <ErrorScreen error="Error | Schedule not found" />;
   }
 
+  // TODO add time indicator
+
   return (
     <>
-      <TopNavigation title="Schedule" url="/schedule" />
+      <Header title="Schedule" url="/schedule" select />
       <Container>
         <ScheduleContainer columns={day.stages.length}>
           <ScheduleTimes />
@@ -36,7 +38,7 @@ export const Schedule = () => {
 const Container = styled.div`
   overflow: scroll;
   height: calc(
-    100vh - ${sizes.topNavigationHeight} - ${sizes.bottomNavigationHeight}
+    100vh - ${sizes.pageHeaderHeight} - ${sizes.bottomNavigationHeight}
   );
 `;
 

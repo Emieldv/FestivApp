@@ -1,9 +1,10 @@
-import { FC, ReactNode } from "react";
-import { Home as HomeComponent } from "../../pages/Home";
-import { Grid, Home, Icon, Layout } from "react-feather";
+import { FC } from "react";
+import { Home as HomePage } from "../../pages/Home";
+import { Grid, Home, Icon, Layout, Map } from "react-feather";
 import { useSchedule } from "./useSchedule";
 import { Schedule } from "../../pages/Schedule";
 import { LineUp } from "../../pages/LineUp";
+import { Map as MapPage } from "../../pages/Map";
 
 export interface NavigationItem {
   name: string;
@@ -22,7 +23,7 @@ export function useNavigationItems(): NavigationItem[] {
       icon: Home,
       baseUrl: "/",
       url: "/",
-      component: HomeComponent,
+      component: HomePage,
     },
     {
       name: "Schedule",
@@ -37,6 +38,13 @@ export function useNavigationItems(): NavigationItem[] {
       baseUrl: "/lineup/:dayId",
       url: `/lineup/${rawData.days[0].id}`,
       component: LineUp,
+    },
+    {
+      name: "Map",
+      icon: Map,
+      baseUrl: "/map",
+      url: "/map",
+      component: MapPage,
     },
   ];
 }
