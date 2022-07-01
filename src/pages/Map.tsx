@@ -6,7 +6,9 @@ import { sizes } from "../lib/constants";
 import { MapInteractionCSS } from "react-map-interaction";
 import { Header } from "../components/navigation/Header";
 
-export const Map: FC = (params) => {
+export const Map: FC = () => {
+  // TODO get map from airtable
+
   return (
     <>
       <Header title="Festival map" />

@@ -7,6 +7,7 @@ interface AirtableData<Type> {
 }
 
 const API = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_KEY}`;
+const BEARER = `Bearer ${process.env.REACT_APP_AIRTABLE_BEARER}`;
 
 export function useAirTable<Type>(url: string, fields?: string[]) {
   const [state, setState] = useState<AirtableData<Type>>({
@@ -34,8 +35,7 @@ async function fetcher<Type>(
   filter: string | undefined
 ): Promise<AirtableData<Type>> {
   const data = fetch(`${API}${url}${filter ? "?" + filter : ""}`, {
-    // TODO set bearer in env
-    headers: { Authorization: "Bearer keyWFjC7AsnLrN0QT" },
+    headers: { Authorization: BEARER },
   })
     .then((response) => response.json())
     .then(async (json) => {
@@ -49,7 +49,7 @@ async function fetcher<Type>(
           await fetch(
             `${API}${url}?offset=${json.offset}${filter ? "&" + filter : ""}`,
             {
-              headers: { Authorization: "Bearer keyWFjC7AsnLrN0QT" },
+              headers: { Authorization: BEARER },
             }
           )
             .then((response) => response.json())
