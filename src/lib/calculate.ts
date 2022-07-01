@@ -1,4 +1,10 @@
-import { differenceInMinutes, startOfHour } from "date-fns";
+import {
+  differenceInMinutes,
+  isFuture,
+  isPast,
+  isWithinInterval,
+  startOfHour,
+} from "date-fns";
 import { Day } from "../interfaces/data";
 import { sizes } from "./constants";
 
@@ -46,8 +52,19 @@ export function calculateTimelines(day: Day) {
   return array;
 }
 
-export const calculateSlotHeight = () => {
+export function calculateSlotHeight() {
   const slotsPerHour = 60 / sizes.slotSize;
   const slotHeight = sizes.hourHeight / slotsPerHour;
   return slotHeight.toString() + "px";
-};
+}
+
+export function calculateTimeFrame(start: Date, end: Date) {
+  return {
+    future: isFuture(start),
+    present: isWithinInterval(new Date(), {
+      start: start,
+      end: end,
+    }),
+    past: isPast(end),
+  };
+}
