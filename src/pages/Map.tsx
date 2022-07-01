@@ -13,7 +13,7 @@ export const Map: FC = () => {
     <>
       <Header title="Festival map" />
       <Container>
-        <MapInteractionCSS minScale="0.5" maxScale="2">
+        <MapInteractionCSS minScale={0.5} maxScale={2}>
           <Img src={process.env.PUBLIC_URL + "/map.jpeg"} alt="Map" />
         </MapInteractionCSS>
       </Container>

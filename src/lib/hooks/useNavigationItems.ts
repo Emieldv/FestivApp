@@ -11,6 +11,7 @@ export interface NavigationItem {
   icon: Icon;
   url: string;
   baseUrl: string;
+  routingUrl: string;
   component: FC;
 }
 
@@ -21,29 +22,33 @@ export function useNavigationItems(): NavigationItem[] {
     {
       name: "Home",
       icon: Home,
-      baseUrl: "/",
-      url: "/",
+      url: "/home",
+      baseUrl: "/home",
+      routingUrl: "/home",
       component: HomePage,
     },
     {
       name: "Schedule",
       icon: Layout,
-      baseUrl: "/schedule/:dayId",
       url: `/schedule/${rawData.days[0].id}`,
+      baseUrl: "/schedule",
+      routingUrl: "/schedule/:dayId",
       component: Schedule,
     },
     {
       name: "My line up",
       icon: Grid,
-      baseUrl: "/lineup/:dayId",
       url: `/lineup/${rawData.days[0].id}`,
+      baseUrl: "/lineup",
+      routingUrl: "/lineup/:dayId",
       component: LineUp,
     },
     {
       name: "Map",
       icon: Map,
-      baseUrl: "/map",
       url: "/map",
+      baseUrl: "/map",
+      routingUrl: "/map",
       component: MapPage,
     },
   ];
