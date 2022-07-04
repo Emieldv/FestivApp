@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useData } from "./useSchedule";
+import { useData } from "./useData";
 
 export function useCurrentDay() {
   const { data } = useData();

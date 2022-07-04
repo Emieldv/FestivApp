@@ -1,11 +1,10 @@
 import { differenceInSeconds } from "date-fns";
 import { FC, useEffect, useState } from "react";
-import { Facebook, Instagram, Twitter } from "react-feather";
 import styled from "styled-components";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { calculateTimeFrame } from "../lib/calculate";
 import { colors, sizes } from "../lib/constants";
-import { useData } from "../lib/hooks/useSchedule";
+import { useData } from "../lib/hooks/useData";
 import { secondsToTime } from "../lib/timer";
 
 // TODO Make data come from airtable

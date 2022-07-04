@@ -1,14 +1,20 @@
 import { FC } from "react";
 import { Home as HomePage } from "../../pages/Home";
-import { Grid, Home, Icon, Layout, Map } from "react-feather";
-import { useData } from "./useSchedule";
+import { useData } from "./useData";
 import { Schedule } from "../../pages/Schedule";
-import { LineUp } from "../../pages/LineUp";
+import { LineUp } from "../../pages/MyLineUp";
 import { Map as MapPage } from "../../pages/Map";
+import {
+  HomeIcon,
+  MapIcon,
+  ViewBoardsIcon,
+  ViewGridIcon,
+} from "@heroicons/react/outline";
 
 export interface NavigationItem {
   name: string;
-  icon: Icon;
+  // TODO typing
+  icon: any;
   url: string;
   baseUrl: string;
   routingUrl: string;
@@ -21,7 +27,7 @@ export function useNavigationItems(): NavigationItem[] {
   return [
     {
       name: "Home",
-      icon: Home,
+      icon: HomeIcon,
       url: "/home",
       baseUrl: "/home",
       routingUrl: "/home",
@@ -29,7 +35,7 @@ export function useNavigationItems(): NavigationItem[] {
     },
     {
       name: "Schedule",
-      icon: Layout,
+      icon: ViewBoardsIcon,
       url: `/schedule/${rawData.days[0].id}`,
       baseUrl: "/schedule",
       routingUrl: "/schedule/:dayId",
@@ -37,7 +43,7 @@ export function useNavigationItems(): NavigationItem[] {
     },
     {
       name: "My line up",
-      icon: Grid,
+      icon: ViewGridIcon,
       url: `/lineup/${rawData.days[0].id}`,
       baseUrl: "/lineup",
       routingUrl: "/lineup/:dayId",
@@ -45,7 +51,7 @@ export function useNavigationItems(): NavigationItem[] {
     },
     {
       name: "Map",
-      icon: Map,
+      icon: MapIcon,
       url: "/map",
       baseUrl: "/map",
       routingUrl: "/map",

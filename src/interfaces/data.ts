@@ -4,6 +4,7 @@ export interface Day {
   id: string;
   name: string;
   start: string;
+  gigs: string[];
 }
 
 export interface Stage {
@@ -39,4 +40,10 @@ export interface IScheduleContext {
   data: {
     days: DayFull[];
   };
+}
+
+export interface ILikesContext {
+  likes: string[];
+  addLike: (id: string) => void;
+  removeLike: (id: string) => void;
 }
