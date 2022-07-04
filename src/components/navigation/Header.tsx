@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors, sizes } from "../../lib/constants";
 import Select, { StylesConfig } from "react-select";
 import { useParams, useNavigate } from "react-router-dom";
-import { useData } from "../../lib/hooks/useSchedule";
+import { useData } from "../../lib/hooks/useData";
 
 interface TopNavigationProps {
   title: string;

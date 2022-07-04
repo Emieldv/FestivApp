@@ -6,6 +6,7 @@ import "./normalize.css";
 import "./index.css";
 import { DataProvider } from "./lib/context/Schedule";
 import { BrowserRouter } from "react-router-dom";
+import { LikesProvider } from "./lib/context/Likes";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,9 +14,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <DataProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <LikesProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </LikesProvider>
     </DataProvider>
   </React.StrictMode>
 );
