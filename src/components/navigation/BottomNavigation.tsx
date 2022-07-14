@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, sizes } from "../../lib/constants";
+import { sizes } from "../../lib/constants";
 import {
   NavigationItem,
   useNavigationItems,
@@ -12,7 +12,6 @@ export const BottomNavigation = () => {
   const active = (url: string) => {
     return window.location.pathname.includes(url);
   };
-
   return (
     <Container navigationItems={navigationItems}>
       {navigationItems.map((item, index) => (
@@ -31,7 +30,7 @@ interface ContainerProps {
 
 const Container = styled.div<ContainerProps>`
   height: ${sizes.bottomNavigationHeight};
-  background-color: ${colors.lessDark};
+  background-color: ${({ theme }) => theme.navigation};
   display: grid;
   justify-content: center;
   align-items: center;
@@ -47,7 +46,8 @@ const ItemContainer = styled(Link)<{ $active: boolean }>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: ${({ $active }) => ($active ? colors.primary : colors.white)};
+  color: ${({ $active, theme }) =>
+    $active ? theme.navigationIconActive : theme.navigationIcon};
   text-decoration: none;
 
   svg {

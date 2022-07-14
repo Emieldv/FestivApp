@@ -1,13 +1,15 @@
 import { createContext, FC, ReactNode, useEffect, useState } from "react";
-import { ILikesContext } from "../../interfaces/data";
+import { IStorageContext } from "../../interfaces/data";
 
-export const LikesContext = createContext<ILikesContext | undefined>(undefined);
+export const StorageContext = createContext<IStorageContext | undefined>(
+  undefined
+);
 
-interface LikesProviderProps {
+interface StorageProviderProps {
   children: ReactNode;
 }
 
-export const LikesProvider: FC<LikesProviderProps> = ({ children }) => {
+export const StorageProvider: FC<StorageProviderProps> = ({ children }) => {
   const [likes, setLikes] = useState<string[]>([]);
 
   // Get likes from storage at mount
@@ -32,14 +34,16 @@ export const LikesProvider: FC<LikesProviderProps> = ({ children }) => {
   };
 
   return (
-    <LikesContext.Provider
+    <StorageContext.Provider
       value={{
-        likes,
-        addLike,
-        removeLike,
+        likes: {
+          data: likes,
+          addLike,
+          removeLike,
+        },
       }}
     >
       {children}
-    </LikesContext.Provider>
+    </StorageContext.Provider>
   );
 };

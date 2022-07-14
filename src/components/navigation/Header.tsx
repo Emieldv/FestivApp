@@ -1,9 +1,11 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { colors, sizes } from "../../lib/constants";
+import { sizes } from "../../lib/constants";
 import Select, { StylesConfig } from "react-select";
 import { useParams, useNavigate } from "react-router-dom";
 import { useData } from "../../lib/hooks/useData";
+import { useConfig } from "../../lib/hooks/useConfig";
+import { IColors } from "../../interfaces/data";
 
 interface TopNavigationProps {
   title: string;
@@ -16,6 +18,7 @@ export const Header: FC<TopNavigationProps> = ({
   url,
   select = false,
 }) => {
+  const { Colors } = useConfig();
   const navigate = useNavigate();
   const { rawData } = useData();
   const { dayId } = useParams();
@@ -33,15 +36,19 @@ export const Header: FC<TopNavigationProps> = ({
   return (
     <Container>
       <h1>{title}</h1>
-      {select && (
-        <Select
-          options={options}
-          value={value}
-          onChange={handleChange}
-          styles={selectStyle}
-          isSearchable={false}
-        />
-      )}
+      {select ? (
+        options.length > 1 ? (
+          <Select
+            options={options}
+            value={value}
+            onChange={handleChange}
+            styles={selectStyle(Colors)}
+            isSearchable={false}
+          />
+        ) : (
+          <FakeSelect>{value?.label}</FakeSelect>
+        )
+      ) : null}
     </Container>
   );
 };
@@ -50,33 +57,38 @@ const Container = styled.div`
   height: ${sizes.pageHeaderHeight};
   display: flex;
   align-items: center;
-  background-color: ${colors.lessDark};
+  background-color: ${({ theme }) => theme.navigation};
   padding: 0 20px;
 
   h1 {
     text-transform: uppercase;
     font-size: 25px;
-    color: white;
+    color: ${({ theme }) => theme.navigationIcon};
     font-weight: 600;
     margin: 0;
     padding-top: 5px;
   }
 `;
 
-const selectStyle: StylesConfig = {
-  container: (old) => ({
+const FakeSelect = styled.h1`
+  color: ${({ theme }) => theme.navigationIconActive} !important;
+  padding-left: 10px;
+`;
+
+const selectStyle = (colors: IColors): StylesConfig => ({
+  container: (old: any) => ({
     ...old,
     zIndex: 200,
   }),
-  control: (old) => ({
+  control: (old: any) => ({
     ...old,
     backgroundColor: "transparent",
     border: "none",
     paddingTop: "5px",
   }),
-  singleValue: (old) => ({
+  singleValue: (old: any) => ({
     ...old,
-    color: colors.primary,
+    color: colors.navigationIconActive,
     fontSize: "25px",
     fontWeight: "600",
     textTransform: "uppercase",
@@ -84,13 +96,13 @@ const selectStyle: StylesConfig = {
   indicatorSeparator: () => ({
     display: "none",
   }),
-  valueContainer: (old) => ({
+  valueContainer: (old: any) => ({
     ...old,
     paddingRight: 0,
     marginRight: "-5px",
   }),
-  dropdownIndicator: (old) => ({
+  dropdownIndicator: (old: any) => ({
     ...old,
-    color: colors.primary,
+    color: colors.navigationIconActive,
   }),
-};
+});

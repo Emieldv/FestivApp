@@ -4,30 +4,31 @@ import styled from "styled-components";
 import { Gig } from "../../interfaces/data";
 import { calculateGridPosition } from "../../lib/calculate";
 import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
-import { colors } from "../../lib/constants";
 import { BookmarkIcon } from "@heroicons/react/outline";
 import { BookmarkIcon as LikedIcon } from "@heroicons/react/solid";
-import { useLikes } from "../../lib/hooks/useLikes";
+import { useStorage } from "../../lib/hooks/useStorage";
+import { useConfig } from "../../lib/hooks/useConfig";
 
 interface ScheduleSlotProps {
   band: Gig;
 }
 
 export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
+  const { Colors } = useConfig();
   const currentDay = useCurrentDay()!;
-  const { likes, addLike, removeLike } = useLikes();
+  const { likes } = useStorage();
 
   const [start, end] = calculateGridPosition(
     { start: new Date(currentDay.start) },
     { start: new Date(band.start), end: new Date(band.end) }
   );
 
-  const liked = likes.find((like) => like === band.id);
+  const liked = likes.data.find((like) => like === band.id);
 
   const handleLike = () => {
-    if (!liked) return addLike(band.id);
+    if (!liked) return likes.addLike(band.id);
 
-    return removeLike(band.id);
+    return likes.removeLike(band.id);
   };
 
   return (
@@ -40,9 +41,9 @@ export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
         </p>
       </div>
       {liked ? (
-        <LikedIcon color={colors.lightest} onClick={handleLike} />
+        <LikedIcon color={Colors.slotSelectedText} onClick={handleLike} />
       ) : (
-        <BookmarkIcon color={colors.primary} onClick={handleLike} />
+        <BookmarkIcon color={Colors.slotText} onClick={handleLike} />
       )}
     </Slot>
   );
@@ -54,14 +55,13 @@ interface SlotProps {
 }
 
 const Slot = styled.div<SlotProps>`
-  background-color: ${colors.dark};
+  background-color: ${({ theme }) => theme.slotBackground};
   padding: 10px;
-  color: ${colors.white};
   grid-row-start: ${({ start }) => start + 1};
   grid-row-end: ${({ end }) => end + 1};
   margin: 1px 15px 0 15px;
   z-index: 20;
-  border-left: 3px solid ${colors.primary};
+  border-left: 3px solid ${({ theme }) => theme.slotSelectedBackground};
   border-radius: 2px;
 
   display: grid;
@@ -70,21 +70,25 @@ const Slot = styled.div<SlotProps>`
   h3 {
     font-size: 21px;
     margin: 0;
-    color: ${colors.primary};
+    color: ${({ theme }) => theme.navigation};
   }
 
   p {
     margin: 0;
     font-weight: 500;
     font-size: 18px;
+    color: ${({ theme }) => theme.slotText};
   }
 
   &.liked {
-    background-color: ${colors.primary};
-    color: ${colors.lightest};
+    background-color: ${({ theme }) => theme.slotSelectedBackground};
 
     h3 {
-      color: ${colors.lightest};
+      color: ${({ theme }) => theme.slotSelectedText};
+    }
+
+    p {
+      color: ${({ theme }) => theme.slotSelectedText};
     }
 
     svg {

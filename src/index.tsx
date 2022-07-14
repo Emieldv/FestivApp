@@ -4,9 +4,9 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import "./normalize.css";
 import "./index.css";
-import { DataProvider } from "./lib/context/Schedule";
+import { DataProvider } from "./lib/context/Data";
 import { BrowserRouter } from "react-router-dom";
-import { LikesProvider } from "./lib/context/Likes";
+import { StorageProvider } from "./lib/context/Storage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,11 +14,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <DataProvider>
-      <LikesProvider>
+      <StorageProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </LikesProvider>
+      </StorageProvider>
     </DataProvider>
   </React.StrictMode>
 );

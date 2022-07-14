@@ -5,10 +5,10 @@ import { ErrorScreen } from "../components/ErrorScreen";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { Header } from "../components/navigation/Header";
 import { Gig, Stage } from "../interfaces/data";
-import { colors, sizes } from "../lib/constants";
+import { sizes } from "../lib/constants";
 import { useCurrentDay } from "../lib/hooks/useCurrentDay";
 import { useData } from "../lib/hooks/useData";
-import { useLikes } from "../lib/hooks/useLikes";
+import { useStorage } from "../lib/hooks/useStorage";
 
 interface ILikedGigs extends Gig {
   stageData: Stage;
@@ -17,14 +17,14 @@ interface ILikedGigs extends Gig {
 export const LineUp: FC = () => {
   const { rawData } = useData();
   const day = useCurrentDay();
-  const { likes } = useLikes();
+  const { likes } = useStorage();
 
   if (!day) {
     return <ErrorScreen error="Error | Line up not found" />;
   }
 
   const likedGigs: ILikedGigs[] = day.gigs
-    .filter((gig) => likes.includes(gig))
+    .filter((gig) => likes.data.includes(gig))
     .map((gig) => {
       const gigData = rawData.gigs.find((data) => data.id === gig)!;
       const stage = rawData.stages.find(
@@ -67,16 +67,16 @@ const Container = styled.div`
 `;
 
 const GigListItem = styled.div`
-  background-color: ${colors.primary};
+  background-color: ${({ theme }) => theme.slotBackground};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid ${colors.dark};
+  border-bottom: 2px solid ${({ theme }) => theme.background};
   padding: 10px 0;
 
   p {
-    color: ${colors.lightest};
+    color: ${({ theme }) => theme.slotText};
     text-align: center;
   }
 `;

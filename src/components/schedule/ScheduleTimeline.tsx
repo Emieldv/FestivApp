@@ -2,9 +2,12 @@ import { FC } from "react";
 import styled from "styled-components";
 import { calculateTimelines } from "../../lib/calculate";
 import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
-import { colors, sizes } from "../../lib/constants";
+import { sizes } from "../../lib/constants";
+import { useConfig } from "../../lib/hooks/useConfig";
+import { IColors } from "../../interfaces/data";
 
 export const ScheduleTimeline: FC = () => {
+  const { Colors } = useConfig();
   const day = useCurrentDay()!;
   const timelines = calculateTimelines(day);
 
@@ -13,7 +16,7 @@ export const ScheduleTimeline: FC = () => {
       {timelines.map((item, key) => (
         <Hour key={key}>
           {item.map((color, key) => (
-            <HalfHour key={key} color={color} />
+            <HalfHour key={key} color={color} $colors={Colors} />
           ))}
         </Hour>
       ))}
@@ -28,19 +31,19 @@ const Container = styled.div`
 `;
 
 const Hour = styled.div`
-  border-top: 1px solid ${colors.lightest};
+  border-top: 1px solid ${({ theme }) => theme.hourBorder};
 
   :first-child {
     border: none;
   }
 `;
 
-const HalfHour = styled.div<{ color: string }>`
+const HalfHour = styled.div<{ color: string; $colors: IColors }>`
   height: ${sizes.hourHeight / 2 - 1}px;
-  background-color: ${({ color }) =>
-    color === "light" ? colors.timelineLight : colors.timelineDark};
+  background-color: ${({ color, $colors }) =>
+    color === "light" ? $colors.timelineLight : $colors.timelineDark};
 
   :nth-child(2) {
-    border-top: 1px solid #eeeeee20;
+    border-top: 1px solid ${({ theme }) => theme.halfhourBorder};
   }
 `;

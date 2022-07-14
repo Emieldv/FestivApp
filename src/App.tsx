@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
 import { ErrorScreen } from "./components/ErrorScreen";
 import { useNavigationItems } from "./lib/hooks/useNavigationItems";
 
@@ -6,7 +7,7 @@ function App() {
   const navigationItems = useNavigationItems();
 
   return (
-    <main>
+    <Main>
       <Routes>
         {navigationItems.map((item, index) => (
           <Route
@@ -18,8 +19,12 @@ function App() {
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="*" element={<ErrorScreen error="Page not found" />} />
       </Routes>
-    </main>
+    </Main>
   );
 }
+
+const Main = styled.main`
+  background-color: ${({ theme }) => theme.background};
+`;
 
 export default App;

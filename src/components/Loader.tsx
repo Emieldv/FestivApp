@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { colors } from "../lib/constants";
 
 export const Loader = () => {
   return (
@@ -15,7 +14,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${colors.dark};
+  background-color: ${({ theme }) => theme.background};
 `;
 
 const Loaderspan = styled.span`
@@ -23,12 +22,12 @@ const Loaderspan = styled.span`
   width: 85px;
   height: 50px;
   background-repeat: no-repeat;
-  background-image: linear-gradient(${colors.primary} 50px, transparent 0),
-    linear-gradient(${colors.primary} 50px, transparent 0),
-    linear-gradient(${colors.primary} 50px, transparent 0),
-    linear-gradient(${colors.primary} 50px, transparent 0),
-    linear-gradient(${colors.primary} 50px, transparent 0),
-    linear-gradient(${colors.primary} 50px, transparent 0);
+  background-image: linear-gradient(white 50px, transparent 0),
+    linear-gradient(white 50px, transparent 0),
+    linear-gradient(white 50px, transparent 0),
+    linear-gradient(white 50px, transparent 0),
+    linear-gradient(white 50px, transparent 0),
+    linear-gradient(white 50px, transparent 0);
   background-position: 0px center, 15px center, 30px center, 45px center,
     60px center, 75px center, 90px center;
   animation: rikSpikeRoll 0.65s linear infinite alternate;

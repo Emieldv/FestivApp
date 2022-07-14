@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { StageFull } from "../../interfaces/data";
 import { calculateGridRows, calculateSlotHeight } from "../../lib/calculate";
-import { colors, sizes } from "../../lib/constants";
+import { sizes } from "../../lib/constants";
 import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
 import { ScheduleSlot } from "./ScheduleSlot";
 import { ScheduleTimeline } from "./ScheduleTimeline";
@@ -39,12 +39,12 @@ const Column = styled.div`
 `;
 
 const Header = styled.div`
-  background-color: ${colors.secondary};
+  background-color: ${({ theme }) => theme.scheduleHeaderBackground};
   position: sticky;
   top: 0;
   z-index: 100;
-  color: ${colors.lightest};
-  border-right: 1px solid ${colors.dark};
+  color: ${({ theme }) => theme.scheduleHeaderText};
+  border-right: 1px solid ${({ theme }) => theme.scheduleHeaderText};
   height: ${sizes.scheduleHeaderHeight};
 
   display: flex;
