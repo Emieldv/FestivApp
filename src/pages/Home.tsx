@@ -8,8 +8,6 @@ import { useConfig } from "../lib/hooks/useConfig";
 import { useData } from "../lib/hooks/useData";
 import { secondsToTime } from "../lib/timer";
 
-// TODO Make data come from airtable
-
 export const Home: FC = () => {
   const { FestivalName } = useConfig();
   const { rawData } = useData();
@@ -162,13 +160,13 @@ const Timer = styled.div`
 const NextGig = styled.div`
   height: 100px;
   width: 100vw;
-  background-color: ${({ theme }) => theme.secondary};
-  color: ${({ theme }) => theme.lightest};
+  background-color: ${({ theme }) => theme.timerTitleBackground};
+  color: ${({ theme }) => theme.timerTitleText};
 `;
 
 const EndMessage = styled.div`
   height: 100px;
   width: 100vw;
-  background-color: ${({ theme }) => theme.secondary};
-  color: ${({ theme }) => theme.lightest};
+  background-color: ${({ theme }) => theme.timerTitleBackground};
+  color: ${({ theme }) => theme.timerTitleText};
 `;
