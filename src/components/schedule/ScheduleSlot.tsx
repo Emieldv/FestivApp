@@ -57,7 +57,7 @@ interface SlotProps {
 const Slot = styled.div<SlotProps>`
   background-color: ${({ theme }) => theme.slotBackground};
   padding: 10px;
-  grid-row-start: ${({ start }) => start + 1};
+  grid-area: ${({ start }) => start + 1} / 1;
   grid-row-end: ${({ end }) => end + 1};
   margin: 1px 15px 0 15px;
   z-index: 20;

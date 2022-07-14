@@ -7,6 +7,7 @@ import { sizes } from "../lib/constants";
 import { useConfig } from "../lib/hooks/useConfig";
 import { useData } from "../lib/hooks/useData";
 import { secondsToTime } from "../lib/timer";
+import banner from "../assets/banner.jpg";
 
 export const Home: FC = () => {
   const { FestivalName } = useConfig();
@@ -45,7 +46,7 @@ export const Home: FC = () => {
     <>
       <Container>
         <Banner>
-          <img src={process.env.PUBLIC_URL + "/banner.jpg"} alt="Banner" />
+          <img src={banner} alt="Banner" />
         </Banner>
         {future && (
           <>

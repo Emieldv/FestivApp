@@ -1,3 +1,4 @@
+import { isWithinInterval } from "date-fns";
 import { FC } from "react";
 import styled from "styled-components";
 import { StageFull } from "../../interfaces/data";
@@ -6,6 +7,7 @@ import { sizes } from "../../lib/constants";
 import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
 import { ScheduleSlot } from "./ScheduleSlot";
 import { ScheduleTimeline } from "./ScheduleTimeline";
+import { TimeIndicator } from "./TimeIndicator";
 
 interface ScheduleColumnProps {
   stage: StageFull;
@@ -13,6 +15,11 @@ interface ScheduleColumnProps {
 
 export const ScheduleColumn: FC<ScheduleColumnProps> = ({ stage }) => {
   const currentDay = useCurrentDay()!;
+
+  const today = isWithinInterval(new Date(), {
+    start: new Date(currentDay.start),
+    end: new Date(currentDay.end),
+  });
 
   return (
     <Column>
@@ -28,6 +35,7 @@ export const ScheduleColumn: FC<ScheduleColumnProps> = ({ stage }) => {
         {stage.gigs.map((gig, key) => (
           <ScheduleSlot key={key} band={gig} />
         ))}
+        {today && <TimeIndicator />}
         <ScheduleTimeline />
       </ScheduleBody>
     </Column>

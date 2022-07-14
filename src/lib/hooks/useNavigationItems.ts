@@ -34,6 +34,7 @@ export function useNavigationItems(): NavigationItem[] {
       component: HomePage,
     },
     {
+      // TODO Navigate to nearest day in the schedule
       name: "Schedule",
       icon: ViewBoardsIcon,
       url: `/schedule/${rawData.days[0].id}`,

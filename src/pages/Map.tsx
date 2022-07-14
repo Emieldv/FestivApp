@@ -5,16 +5,15 @@ import { sizes } from "../lib/constants";
 //@ts-ignore
 import { MapInteractionCSS } from "react-map-interaction";
 import { Header } from "../components/navigation/Header";
+import map from "../assets/map.jpeg";
 
 export const Map: FC = () => {
-  // TODO get map from airtable
-
   return (
     <>
       <Header title="Festival map" />
       <Container>
         <MapInteractionCSS minScale={0.5} maxScale={2}>
-          <Img src={process.env.PUBLIC_URL + "/map.jpeg"} alt="Map" />
+          <Img src={map} alt="Map" />
         </MapInteractionCSS>
       </Container>
       <BottomNavigation />
