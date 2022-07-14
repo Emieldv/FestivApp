@@ -1,3 +1,15 @@
+export interface IColors {
+  primary: string;
+  secondary: string;
+  dark: string;
+  lessDark: string;
+  lightest: string;
+  white: string;
+  error: string;
+  timelineDark: string;
+  timelineLight: string;
+}
+
 export interface Day {
   createdTime: string;
   end: string;
@@ -27,7 +39,7 @@ export interface ConfigData {
   createdTime: string;
   id: string;
   FestivalName: string;
-  Colors: Colors;
+  Colors: string;
 }
 
 export interface StageFull extends Stage {
@@ -38,7 +50,7 @@ export interface DayFull extends Day {
   stages: StageFull[];
 }
 
-export interface IScheduleContext {
+export interface IDataContext {
   rawData: {
     stages: Stage[];
     days: Day[];
@@ -46,6 +58,10 @@ export interface IScheduleContext {
   };
   data: {
     days: DayFull[];
+  };
+  config: {
+    Colors: IColors;
+    FestivalName: string;
   };
 }
 
@@ -55,21 +71,4 @@ export interface IStorageContext {
     addLike: (id: string) => void;
     removeLike: (id: string) => void;
   };
-}
-
-interface Colors {
-  primary: string;
-  secondary: string;
-  dark: string;
-  lessDark: string;
-  lightest: string;
-  white: string;
-  error: string;
-  timelineDark: string;
-  timelineLight: string;
-}
-
-export interface IConfigContext {
-  FestivalName: string;
-  Colors: Colors;
 }

@@ -1,6 +1,5 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { colors } from "../lib/constants";
 
 interface ErrorScreenProps {
   error: string;
@@ -26,7 +25,7 @@ const Container = styled.div`
 
 const ErrorContainer = styled.div`
   padding: 20px 10px;
-  background-color: ${colors.error};
+  background-color: ${({ theme }) => theme.error};
   border-radius: 10px;
   width: 280px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -37,5 +36,5 @@ const ErrorText = styled.p`
   font-weight: 600;
   font-size: 20px;
   margin: 0;
-  color: ${colors.white};
+  color: ${({ theme }) => theme.white};
 `;

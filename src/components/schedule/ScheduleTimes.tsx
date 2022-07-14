@@ -2,7 +2,7 @@ import { addHours, format, startOfHour } from "date-fns";
 import { FC } from "react";
 import styled from "styled-components";
 import { calculateTimelines } from "../../lib/calculate";
-import { colors, sizes } from "../../lib/constants";
+import { sizes } from "../../lib/constants";
 import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
 
 export const ScheduleTimes: FC = (params) => {
@@ -57,13 +57,13 @@ const HalfHour = styled.div<{ color: string }>`
 
 const Label = styled.div`
   padding: 5px 10px;
-  background-color: ${colors.lightest};
+  background-color: ${({ theme }) => theme.lightest};
   position: absolute;
   bottom: 0;
   transform: translateY(50%);
   p {
     margin: 0;
-    color: ${colors.secondary};
+    color: ${({ theme }) => theme.secondary};
     font-size: 18px;
     padding-top: 3px;
   }

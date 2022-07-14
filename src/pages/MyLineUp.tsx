@@ -5,7 +5,7 @@ import { ErrorScreen } from "../components/ErrorScreen";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { Header } from "../components/navigation/Header";
 import { Gig, Stage } from "../interfaces/data";
-import { colors, sizes } from "../lib/constants";
+import { sizes } from "../lib/constants";
 import { useCurrentDay } from "../lib/hooks/useCurrentDay";
 import { useData } from "../lib/hooks/useData";
 import { useStorage } from "../lib/hooks/useStorage";
@@ -67,16 +67,16 @@ const Container = styled.div`
 `;
 
 const GigListItem = styled.div`
-  background-color: ${colors.primary};
+  background-color: ${({ theme }) => theme.primary};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid ${colors.dark};
+  border-bottom: 2px solid ${({ theme }) => theme.dark};
   padding: 10px 0;
 
   p {
-    color: ${colors.lightest};
+    color: ${({ theme }) => theme.lightest};
     text-align: center;
   }
 `;

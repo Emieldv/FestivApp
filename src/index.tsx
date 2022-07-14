@@ -7,22 +7,19 @@ import "./index.css";
 import { DataProvider } from "./lib/context/Data";
 import { BrowserRouter } from "react-router-dom";
 import { StorageProvider } from "./lib/context/Storage";
-import { ConfigProvider } from "./lib/context/Config";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ConfigProvider>
-      <DataProvider>
-        <StorageProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </StorageProvider>
-      </DataProvider>
-    </ConfigProvider>
+    <DataProvider>
+      <StorageProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </StorageProvider>
+    </DataProvider>
   </React.StrictMode>
 );
 

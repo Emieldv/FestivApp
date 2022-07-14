@@ -3,19 +3,21 @@ import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { calculateTimeFrame } from "../lib/calculate";
-import { colors, sizes } from "../lib/constants";
+import { sizes } from "../lib/constants";
+import { useConfig } from "../lib/hooks/useConfig";
 import { useData } from "../lib/hooks/useData";
 import { secondsToTime } from "../lib/timer";
 
 // TODO Make data come from airtable
 
 export const Home: FC = () => {
+  const { FestivalName } = useConfig();
   const { rawData } = useData();
   const [timer, setTimer] = useState({
     d: 0,
-    h: 2,
-    m: 3,
-    s: 4,
+    h: 0,
+    m: 0,
+    s: 0,
   });
 
   const { future, present, past } = calculateTimeFrame(
@@ -48,9 +50,8 @@ export const Home: FC = () => {
           <img src={process.env.PUBLIC_URL + "/banner.jpeg"} alt="Banner" />
         </Banner>
         {future && (
-          // TODO insert festival name dynamically
           <>
-            <Title>Time until Alcatraz</Title>
+            <Title>Time until {FestivalName}</Title>
             <Timer>
               <div>
                 <h2>{timer.d}</h2>
@@ -110,8 +111,8 @@ const Banner = styled.div`
 `;
 
 const Title = styled.h2`
-  background-color: ${colors.primary};
-  color: ${colors.lightest};
+  background-color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.lightest};
   width: 100vw;
   margin: 0;
   padding: 10px 0;
@@ -126,13 +127,13 @@ const Timer = styled.div`
   align-items: center;
   height: 100px;
   width: 100vw;
-  background-color: ${colors.secondary};
-  color: ${colors.lightest};
+  background-color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.lightest};
 
   div {
     width: 100%;
     height: 100%;
-    border-right: 1px solid ${colors.dark};
+    border-right: 1px solid ${({ theme }) => theme.dark};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -160,13 +161,13 @@ const Timer = styled.div`
 const NextGig = styled.div`
   height: 100px;
   width: 100vw;
-  background-color: ${colors.secondary};
-  color: ${colors.lightest};
+  background-color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.lightest};
 `;
 
 const EndMessage = styled.div`
   height: 100px;
   width: 100vw;
-  background-color: ${colors.secondary};
-  color: ${colors.lightest};
+  background-color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.lightest};
 `;

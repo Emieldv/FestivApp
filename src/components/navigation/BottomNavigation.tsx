@@ -1,22 +1,29 @@
 import styled from "styled-components";
-import { colors, sizes } from "../../lib/constants";
+import { sizes } from "../../lib/constants";
 import {
   NavigationItem,
   useNavigationItems,
 } from "../../lib/hooks/useNavigationItems";
 import { Link } from "react-router-dom";
+import { IColors } from "../../interfaces/data";
+import { useConfig } from "../../lib/hooks/useConfig";
 
 export const BottomNavigation = () => {
+  const { Colors } = useConfig();
   const navigationItems = useNavigationItems();
 
   const active = (url: string) => {
     return window.location.pathname.includes(url);
   };
-
   return (
     <Container navigationItems={navigationItems}>
       {navigationItems.map((item, index) => (
-        <ItemContainer key={index} to={item.url} $active={active(item.baseUrl)}>
+        <ItemContainer
+          key={index}
+          to={item.url}
+          $active={active(item.baseUrl)}
+          $colors={Colors}
+        >
           <item.icon />
           <p>{item.name}</p>
         </ItemContainer>
@@ -31,7 +38,7 @@ interface ContainerProps {
 
 const Container = styled.div<ContainerProps>`
   height: ${sizes.bottomNavigationHeight};
-  background-color: ${colors.lessDark};
+  background-color: ${({ theme }) => theme.lessDark};
   display: grid;
   justify-content: center;
   align-items: center;
@@ -41,13 +48,14 @@ const Container = styled.div<ContainerProps>`
   );
 `;
 
-const ItemContainer = styled(Link)<{ $active: boolean }>`
+const ItemContainer = styled(Link)<{ $active: boolean; $colors: IColors }>`
   place-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: ${({ $active }) => ($active ? colors.primary : colors.white)};
+  color: ${({ $active, $colors }) =>
+    $active ? $colors.primary : $colors.white};
   text-decoration: none;
 
   svg {

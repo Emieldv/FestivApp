@@ -4,16 +4,17 @@ import styled from "styled-components";
 import { Gig } from "../../interfaces/data";
 import { calculateGridPosition } from "../../lib/calculate";
 import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
-import { colors } from "../../lib/constants";
 import { BookmarkIcon } from "@heroicons/react/outline";
 import { BookmarkIcon as LikedIcon } from "@heroicons/react/solid";
 import { useStorage } from "../../lib/hooks/useStorage";
+import { useConfig } from "../../lib/hooks/useConfig";
 
 interface ScheduleSlotProps {
   band: Gig;
 }
 
 export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
+  const { Colors } = useConfig();
   const currentDay = useCurrentDay()!;
   const { likes } = useStorage();
 
@@ -40,9 +41,9 @@ export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
         </p>
       </div>
       {liked ? (
-        <LikedIcon color={colors.lightest} onClick={handleLike} />
+        <LikedIcon color={Colors.lightest} onClick={handleLike} />
       ) : (
-        <BookmarkIcon color={colors.primary} onClick={handleLike} />
+        <BookmarkIcon color={Colors.primary} onClick={handleLike} />
       )}
     </Slot>
   );
@@ -54,14 +55,14 @@ interface SlotProps {
 }
 
 const Slot = styled.div<SlotProps>`
-  background-color: ${colors.dark};
+  background-color: ${({ theme }) => theme.dark};
   padding: 10px;
-  color: ${colors.white};
+  color: ${({ theme }) => theme.white};
   grid-row-start: ${({ start }) => start + 1};
   grid-row-end: ${({ end }) => end + 1};
   margin: 1px 15px 0 15px;
   z-index: 20;
-  border-left: 3px solid ${colors.primary};
+  border-left: 3px solid ${({ theme }) => theme.primary};
   border-radius: 2px;
 
   display: grid;
@@ -70,7 +71,7 @@ const Slot = styled.div<SlotProps>`
   h3 {
     font-size: 21px;
     margin: 0;
-    color: ${colors.primary};
+    color: ${({ theme }) => theme.primary};
   }
 
   p {
@@ -80,11 +81,11 @@ const Slot = styled.div<SlotProps>`
   }
 
   &.liked {
-    background-color: ${colors.primary};
-    color: ${colors.lightest};
+    background-color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.lightest};
 
     h3 {
-      color: ${colors.lightest};
+      color: ${({ theme }) => theme.lightest};
     }
 
     svg {

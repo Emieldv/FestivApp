@@ -1,24 +1,30 @@
 import { createContext, FC, ReactNode } from "react";
+import { ThemeProvider } from "styled-components";
 import { ErrorScreen } from "../../components/ErrorScreen";
 import { Loader } from "../../components/Loader";
 import {
+  ConfigData,
   Day,
   DayFull,
   Gig,
-  IScheduleContext,
+  IColors,
+  IDataContext,
   Stage,
 } from "../../interfaces/data";
 import { useAirTable } from "../hooks/useAirtable";
 
-export const DataContext = createContext<IScheduleContext | undefined>(
-  undefined
-);
+export const DataContext = createContext<IDataContext | undefined>(undefined);
 
 interface DataProviderProps {
   children: ReactNode;
 }
 
 export const DataProvider: FC<DataProviderProps> = ({ children }) => {
+  const {
+    data: config,
+    error: configError,
+    loading: configLoading,
+  } = useAirTable<ConfigData[]>("/config");
   const {
     data: stages,
     error: stagesError,
@@ -47,17 +53,25 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
 
     const value = JSON.parse(storage);
     return (
-      <DataContext.Provider value={value}>{children}</DataContext.Provider>
+      <DataContext.Provider value={value}>
+        <ThemeProvider
+          theme={{
+            ...value.config.Colors,
+          }}
+        >
+          {children}
+        </ThemeProvider>
+      </DataContext.Provider>
     );
   }
 
   // Still loading?
-  if (gigsLoading || daysLoading || stagesLoading) {
+  if (configLoading || gigsLoading || daysLoading || stagesLoading) {
     return <Loader />;
   }
 
   // Any errors?
-  if (gigsError || daysError || stagesError) {
+  if (configError || gigsError || daysError || stagesError) {
     return <ErrorScreen error="Error retrieving data" />;
   }
 
@@ -85,9 +99,23 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
     data: {
       days: fullDays,
     },
+    config: {
+      Colors: JSON.parse(config![0].Colors) as IColors,
+      FestivalName: config![0].FestivalName,
+    },
   };
 
   localStorage.setItem("localData", JSON.stringify(value));
 
-  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
+  return (
+    <DataContext.Provider value={value}>
+      <ThemeProvider
+        theme={{
+          ...value.config.Colors,
+        }}
+      >
+        {children}
+      </ThemeProvider>
+    </DataContext.Provider>
+  );
 };

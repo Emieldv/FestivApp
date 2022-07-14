@@ -1,11 +1,6 @@
-import { useContext } from "react";
-import { ConfigContext } from "../context/Config";
+import { useData } from "./useData";
 
 export const useConfig = () => {
-  const configContext = useContext(ConfigContext);
-  if (!configContext) {
-    throw new Error("No configProvider detected");
-  }
-
-  return configContext;
+  const { config } = useData();
+  return config;
 };
