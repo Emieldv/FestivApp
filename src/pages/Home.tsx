@@ -111,7 +111,7 @@ const Banner = styled.div`
 `;
 
 const Title = styled.h2`
-  background-color: ${({ theme }) => theme.timestampTitleBackground};
+  background-color: ${({ theme }) => theme.timerTitleBackground};
   color: ${({ theme }) => theme.timerTitleText};
   width: 100vw;
   margin: 0;

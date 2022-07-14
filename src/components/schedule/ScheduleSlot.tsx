@@ -70,7 +70,7 @@ const Slot = styled.div<SlotProps>`
   h3 {
     font-size: 21px;
     margin: 0;
-    color: ${({ theme }) => theme.navigation};
+    color: ${({ theme }) => theme.slotTitle};
   }
 
   p {

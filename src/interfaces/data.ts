@@ -1,6 +1,11 @@
 export interface IColors {
   background: string;
 
+  timerBackground: string;
+  timerText: string;
+  timerTitleBackground: string;
+  timerTitleText: string;
+
   navigation: string;
   navigationIcon: string;
   navigationIconActive: string;
@@ -16,9 +21,6 @@ export interface IColors {
 
   timestampBackground: string;
   timestampText: string;
-
-  timerBackground: string;
-  timerText: string;
 
   timelineDark: string;
   timelineLight: string;
