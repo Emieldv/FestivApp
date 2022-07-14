@@ -57,13 +57,13 @@ const HalfHour = styled.div<{ color: string }>`
 
 const Label = styled.div`
   padding: 5px 10px;
-  background-color: ${({ theme }) => theme.lightest};
+  background-color: ${({ theme }) => theme.timestampBackground};
   position: absolute;
   bottom: 0;
   transform: translateY(50%);
   p {
     margin: 0;
-    color: ${({ theme }) => theme.secondary};
+    color: ${({ theme }) => theme.timestampText};
     font-size: 18px;
     padding-top: 3px;
   }

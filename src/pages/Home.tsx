@@ -47,7 +47,7 @@ export const Home: FC = () => {
     <>
       <Container>
         <Banner>
-          <img src={process.env.PUBLIC_URL + "/banner.jpeg"} alt="Banner" />
+          <img src={process.env.PUBLIC_URL + "/banner.jpg"} alt="Banner" />
         </Banner>
         {future && (
           <>
@@ -111,10 +111,11 @@ const Banner = styled.div`
 `;
 
 const Title = styled.h2`
-  background-color: ${({ theme }) => theme.primary};
-  color: ${({ theme }) => theme.lightest};
+  background-color: ${({ theme }) => theme.timestampTitleBackground};
+  color: ${({ theme }) => theme.timerTitleText};
   width: 100vw;
   margin: 0;
+  margin-bottom: 1px;
   padding: 10px 0;
   text-align: center;
   font-size: 32px;
@@ -127,13 +128,13 @@ const Timer = styled.div`
   align-items: center;
   height: 100px;
   width: 100vw;
-  background-color: ${({ theme }) => theme.secondary};
-  color: ${({ theme }) => theme.lightest};
+  background-color: ${({ theme }) => theme.timerBackground};
+  color: ${({ theme }) => theme.timerText};
 
   div {
     width: 100%;
     height: 100%;
-    border-right: 1px solid ${({ theme }) => theme.dark};
+    border-right: 1px solid ${({ theme }) => theme.background};
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -67,16 +67,16 @@ const Container = styled.div`
 `;
 
 const GigListItem = styled.div`
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.slotBackground};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid ${({ theme }) => theme.dark};
+  border-bottom: 2px solid ${({ theme }) => theme.background};
   padding: 10px 0;
 
   p {
-    color: ${({ theme }) => theme.lightest};
+    color: ${({ theme }) => theme.slotText};
     text-align: center;
   }
 `;

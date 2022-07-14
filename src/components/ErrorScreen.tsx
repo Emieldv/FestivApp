@@ -36,5 +36,5 @@ const ErrorText = styled.p`
   font-weight: 600;
   font-size: 20px;
   margin: 0;
-  color: ${({ theme }) => theme.white};
+  color: white;
 `;

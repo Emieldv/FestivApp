@@ -14,7 +14,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.dark};
+  background-color: ${({ theme }) => theme.background};
 `;
 
 const Loaderspan = styled.span`

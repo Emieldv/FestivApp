@@ -31,7 +31,7 @@ const Container = styled.div`
 `;
 
 const Hour = styled.div`
-  border-top: 1px solid ${({ theme }) => theme.lightest};
+  border-top: 1px solid ${({ theme }) => theme.hourBorder};
 
   :first-child {
     border: none;
@@ -44,6 +44,6 @@ const HalfHour = styled.div<{ color: string; $colors: IColors }>`
     color === "light" ? $colors.timelineLight : $colors.timelineDark};
 
   :nth-child(2) {
-    border-top: 1px solid #eeeeee20;
+    border-top: 1px solid ${({ theme }) => theme.halfhourBorder};
   }
 `;

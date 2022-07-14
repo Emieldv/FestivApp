@@ -102,6 +102,7 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
     config: {
       Colors: JSON.parse(config![0].Colors) as IColors,
       FestivalName: config![0].FestivalName,
+      EnableMap: config![0].EnableMap,
     },
   };
 

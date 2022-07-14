@@ -57,13 +57,13 @@ const Container = styled.div`
   height: ${sizes.pageHeaderHeight};
   display: flex;
   align-items: center;
-  background-color: ${({ theme }) => theme.lessDark};
+  background-color: ${({ theme }) => theme.navigation};
   padding: 0 20px;
 
   h1 {
     text-transform: uppercase;
     font-size: 25px;
-    color: white;
+    color: ${({ theme }) => theme.navigationIcon};
     font-weight: 600;
     margin: 0;
     padding-top: 5px;
@@ -71,7 +71,7 @@ const Container = styled.div`
 `;
 
 const FakeSelect = styled.h1`
-  color: ${({ theme }) => theme.primary} !important;
+  color: ${({ theme }) => theme.navigationIconActive} !important;
   padding-left: 10px;
 `;
 
@@ -88,7 +88,7 @@ const selectStyle = (colors: IColors): StylesConfig => ({
   }),
   singleValue: (old: any) => ({
     ...old,
-    color: colors.primary,
+    color: colors.navigationIconActive,
     fontSize: "25px",
     fontWeight: "600",
     textTransform: "uppercase",
@@ -103,6 +103,6 @@ const selectStyle = (colors: IColors): StylesConfig => ({
   }),
   dropdownIndicator: (old: any) => ({
     ...old,
-    color: colors.primary,
+    color: colors.navigationIconActive,
   }),
 });

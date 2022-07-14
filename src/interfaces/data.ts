@@ -1,13 +1,30 @@
 export interface IColors {
-  primary: string;
-  secondary: string;
-  dark: string;
-  lessDark: string;
-  lightest: string;
-  white: string;
-  error: string;
+  background: string;
+
+  navigation: string;
+  navigationIcon: string;
+  navigationIconActive: string;
+
+  scheduleHeaderBackground: string;
+  scheduleHeaderText: string;
+
+  slotBackground: string;
+  slotTitle: string;
+  slotText: string;
+  slotSelectedBackground: string;
+  slotSelectedText: string;
+
+  timestampBackground: string;
+  timestampText: string;
+
+  timerBackground: string;
+  timerText: string;
+
   timelineDark: string;
   timelineLight: string;
+  hourBorder: string;
+  halfhourBorder: string;
+  error: string;
 }
 
 export interface Day {
@@ -40,6 +57,7 @@ export interface ConfigData {
   id: string;
   FestivalName: string;
   Colors: string;
+  EnableMap: boolean;
 }
 
 export interface StageFull extends Stage {
@@ -62,6 +80,7 @@ export interface IDataContext {
   config: {
     Colors: IColors;
     FestivalName: string;
+    EnableMap: boolean;
   };
 }
 

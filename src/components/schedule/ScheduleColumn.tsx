@@ -39,12 +39,12 @@ const Column = styled.div`
 `;
 
 const Header = styled.div`
-  background-color: ${({ theme }) => theme.secondary};
+  background-color: ${({ theme }) => theme.scheduleHeaderBackground};
   position: sticky;
   top: 0;
   z-index: 100;
-  color: ${({ theme }) => theme.lightest};
-  border-right: 1px solid ${({ theme }) => theme.dark};
+  color: ${({ theme }) => theme.scheduleHeaderText};
+  border-right: 1px solid ${({ theme }) => theme.scheduleHeaderText};
   height: ${sizes.scheduleHeaderHeight};
 
   display: flex;

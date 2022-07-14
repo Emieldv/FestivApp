@@ -41,9 +41,9 @@ export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
         </p>
       </div>
       {liked ? (
-        <LikedIcon color={Colors.lightest} onClick={handleLike} />
+        <LikedIcon color={Colors.slotSelectedText} onClick={handleLike} />
       ) : (
-        <BookmarkIcon color={Colors.primary} onClick={handleLike} />
+        <BookmarkIcon color={Colors.slotText} onClick={handleLike} />
       )}
     </Slot>
   );
@@ -55,14 +55,13 @@ interface SlotProps {
 }
 
 const Slot = styled.div<SlotProps>`
-  background-color: ${({ theme }) => theme.dark};
+  background-color: ${({ theme }) => theme.slotBackground};
   padding: 10px;
-  color: ${({ theme }) => theme.white};
   grid-row-start: ${({ start }) => start + 1};
   grid-row-end: ${({ end }) => end + 1};
   margin: 1px 15px 0 15px;
   z-index: 20;
-  border-left: 3px solid ${({ theme }) => theme.primary};
+  border-left: 3px solid ${({ theme }) => theme.slotSelectedBackground};
   border-radius: 2px;
 
   display: grid;
@@ -71,21 +70,25 @@ const Slot = styled.div<SlotProps>`
   h3 {
     font-size: 21px;
     margin: 0;
-    color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.navigation};
   }
 
   p {
     margin: 0;
     font-weight: 500;
     font-size: 18px;
+    color: ${({ theme }) => theme.slotText};
   }
 
   &.liked {
-    background-color: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.lightest};
+    background-color: ${({ theme }) => theme.slotSelectedBackground};
 
     h3 {
-      color: ${({ theme }) => theme.lightest};
+      color: ${({ theme }) => theme.slotSelectedText};
+    }
+
+    p {
+      color: ${({ theme }) => theme.slotSelectedText};
     }
 
     svg {

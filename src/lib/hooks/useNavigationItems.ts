@@ -22,9 +22,9 @@ export interface NavigationItem {
 }
 
 export function useNavigationItems(): NavigationItem[] {
-  const { rawData } = useData();
+  const { rawData, config } = useData();
 
-  return [
+  const routes = [
     {
       name: "Home",
       icon: HomeIcon,
@@ -49,13 +49,18 @@ export function useNavigationItems(): NavigationItem[] {
       routingUrl: "/lineup/:dayId",
       component: LineUp,
     },
-    {
+  ];
+
+  if (config.EnableMap) {
+    routes.push({
       name: "Map",
       icon: MapIcon,
       url: "/map",
       baseUrl: "/map",
       routingUrl: "/map",
       component: MapPage,
-    },
-  ];
+    });
+  }
+
+  return routes;
 }
