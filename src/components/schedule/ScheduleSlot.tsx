@@ -7,7 +7,7 @@ import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
 import { colors } from "../../lib/constants";
 import { BookmarkIcon } from "@heroicons/react/outline";
 import { BookmarkIcon as LikedIcon } from "@heroicons/react/solid";
-import { useLikes } from "../../lib/hooks/useLikes";
+import { useStorage } from "../../lib/hooks/useStorage";
 
 interface ScheduleSlotProps {
   band: Gig;
@@ -15,19 +15,19 @@ interface ScheduleSlotProps {
 
 export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
   const currentDay = useCurrentDay()!;
-  const { likes, addLike, removeLike } = useLikes();
+  const { likes } = useStorage();
 
   const [start, end] = calculateGridPosition(
     { start: new Date(currentDay.start) },
     { start: new Date(band.start), end: new Date(band.end) }
   );
 
-  const liked = likes.find((like) => like === band.id);
+  const liked = likes.data.find((like) => like === band.id);
 
   const handleLike = () => {
-    if (!liked) return addLike(band.id);
+    if (!liked) return likes.addLike(band.id);
 
-    return removeLike(band.id);
+    return likes.removeLike(band.id);
   };
 
   return (

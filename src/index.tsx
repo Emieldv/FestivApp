@@ -4,22 +4,25 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import "./normalize.css";
 import "./index.css";
-import { DataProvider } from "./lib/context/Schedule";
+import { DataProvider } from "./lib/context/Data";
 import { BrowserRouter } from "react-router-dom";
-import { LikesProvider } from "./lib/context/Likes";
+import { StorageProvider } from "./lib/context/Storage";
+import { ConfigProvider } from "./lib/context/Config";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <DataProvider>
-      <LikesProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </LikesProvider>
-    </DataProvider>
+    <ConfigProvider>
+      <DataProvider>
+        <StorageProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </StorageProvider>
+      </DataProvider>
+    </ConfigProvider>
   </React.StrictMode>
 );
 

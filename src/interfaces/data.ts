@@ -23,6 +23,13 @@ export interface Gig {
   day: string;
 }
 
+export interface ConfigData {
+  createdTime: string;
+  id: string;
+  FestivalName: string;
+  Colors: Colors;
+}
+
 export interface StageFull extends Stage {
   gigs: Gig[];
 }
@@ -42,8 +49,27 @@ export interface IScheduleContext {
   };
 }
 
-export interface ILikesContext {
-  likes: string[];
-  addLike: (id: string) => void;
-  removeLike: (id: string) => void;
+export interface IStorageContext {
+  likes: {
+    data: string[];
+    addLike: (id: string) => void;
+    removeLike: (id: string) => void;
+  };
+}
+
+interface Colors {
+  primary: string;
+  secondary: string;
+  dark: string;
+  lessDark: string;
+  lightest: string;
+  white: string;
+  error: string;
+  timelineDark: string;
+  timelineLight: string;
+}
+
+export interface IConfigContext {
+  FestivalName: string;
+  Colors: Colors;
 }

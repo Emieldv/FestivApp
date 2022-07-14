@@ -8,7 +8,7 @@ import { Gig, Stage } from "../interfaces/data";
 import { colors, sizes } from "../lib/constants";
 import { useCurrentDay } from "../lib/hooks/useCurrentDay";
 import { useData } from "../lib/hooks/useData";
-import { useLikes } from "../lib/hooks/useLikes";
+import { useStorage } from "../lib/hooks/useStorage";
 
 interface ILikedGigs extends Gig {
   stageData: Stage;
@@ -17,14 +17,14 @@ interface ILikedGigs extends Gig {
 export const LineUp: FC = () => {
   const { rawData } = useData();
   const day = useCurrentDay();
-  const { likes } = useLikes();
+  const { likes } = useStorage();
 
   if (!day) {
     return <ErrorScreen error="Error | Line up not found" />;
   }
 
   const likedGigs: ILikedGigs[] = day.gigs
-    .filter((gig) => likes.includes(gig))
+    .filter((gig) => likes.data.includes(gig))
     .map((gig) => {
       const gigData = rawData.gigs.find((data) => data.id === gig)!;
       const stage = rawData.stages.find(

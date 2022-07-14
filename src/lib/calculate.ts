@@ -33,12 +33,16 @@ export function calculateTimelines(day: Day) {
   for (let i = 0; i <= hours; i++) {
     const createArray = (color: string) => {
       if (
-        (i === 0 && startOfHour(new Date(day.start)) !== new Date(day.start)) ||
-        (i === hours && startOfHour(new Date(day.end)) !== new Date(day.end))
+        (i === 0 &&
+          startOfHour(new Date(day.start).getTime()).getTime() !==
+            new Date(day.start).getTime()) ||
+        (i === hours &&
+          startOfHour(new Date(day.end)).getTime() !==
+            new Date(day.end).getTime())
       ) {
         return [color];
       } else {
-        return [color, color];
+        return i !== hours ? [color, color] : [];
       }
     };
 
@@ -49,7 +53,7 @@ export function calculateTimelines(day: Day) {
     }
   }
 
-  return array;
+  return array.filter((item) => item.length > 0);
 }
 
 export function calculateSlotHeight() {

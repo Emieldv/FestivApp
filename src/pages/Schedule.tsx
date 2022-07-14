@@ -22,8 +22,14 @@ export const Schedule = () => {
       <Container>
         <ScheduleContainer columns={day.stages.length}>
           <ScheduleTimes />
+          {/* Empty schedule column behind timestamps */}
           <ScheduleColumn
-            stage={{ createdTime: "ss", id: "ss", name: "", gigs: [] }}
+            stage={{
+              createdTime: Date.now().toString(),
+              id: "FakeID",
+              name: "",
+              gigs: [],
+            }}
           />
           {day.stages.map((stage, key) => (
             <ScheduleColumn key={key} stage={stage} />
@@ -47,7 +53,8 @@ interface ScheduleContainerProps {
 }
 
 const ScheduleContainer = styled.div<ScheduleContainerProps>`
-  min-width: calc(${({ columns }) => columns} * 200px);
+  min-width: ${({ columns }) =>
+    columns > 2 ? (columns * 200).toString() + "px" : "100vw"};
   display: grid;
   grid-template-columns: 0px 60px repeat(${({ columns }) => columns}, 1fr);
 `;
