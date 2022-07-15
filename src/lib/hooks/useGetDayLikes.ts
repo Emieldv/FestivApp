@@ -1,13 +1,9 @@
-import { Gig, Stage } from "../../interfaces/data";
+import { GigFull } from "../../interfaces/data";
 import { useSelectedDay } from "./useCurrentDay";
 import { useData } from "./useData";
 import { useStorage } from "./useStorage";
 
-export interface ILikedGigs extends Gig {
-  stageData: Stage;
-}
-
-export function useGetDayLikes(): ILikedGigs[] | null {
+export function useGetDayLikes(): GigFull[] | null {
   const { rawData } = useData();
   const day = useSelectedDay();
   const { likes } = useStorage();
@@ -25,7 +21,7 @@ export function useGetDayLikes(): ILikedGigs[] | null {
       )!;
       return {
         ...gigData,
-        stageData: stage,
+        stage: stage,
       };
     })
     .sort((x, y) => new Date(x.start).getTime() - new Date(y.start).getTime());

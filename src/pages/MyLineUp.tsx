@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { FC } from "react";
 import styled from "styled-components";
+import { GigDetail } from "../components/myLineUp/GigDetail";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { Header } from "../components/navigation/Header";
 import { sizes } from "../lib/constants";
@@ -27,11 +28,7 @@ export const LineUp: FC = () => {
       <Header title="My line Up" url="/lineup" select />
       <Container>
         {likedGigs.map((gig, index) => (
-          <GigListItem key={index}>
-            <p>{gig.name}</p>
-            <p>{format(new Date(gig!.start), "HH:mm")}</p>
-            <p>{gig.stageData.name}</p>
-          </GigListItem>
+          <GigDetail key={index} gig={gig} />
         ))}
       </Container>
       <BottomNavigation />
@@ -43,6 +40,10 @@ const Container = styled.div`
   height: calc(
     100vh - ${sizes.bottomNavigationHeight} - ${sizes.pageHeaderHeight}
   );
+  overflow: scroll;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
 `;
 
 const EmptyContainer = styled.div`
