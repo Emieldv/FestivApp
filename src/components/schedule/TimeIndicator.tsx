@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { calculateGridPosition } from "../../lib/calculate";
 import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
@@ -7,6 +7,7 @@ export const TimeIndicator = () => {
   const currentDay = useCurrentDay()!;
 
   const [position, setPosition] = useState(1);
+  const lineRef = useRef<any>();
 
   const calculatePosition = () => {
     const [start] = calculateGridPosition(
@@ -20,6 +21,12 @@ export const TimeIndicator = () => {
   // Recalculate the position of the timeIndicator every minute
   useEffect(() => {
     calculatePosition();
+    lineRef.current &&
+      lineRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
 
     const interval = setInterval(() => {
       calculatePosition();
@@ -28,7 +35,7 @@ export const TimeIndicator = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return <Line start={position} />;
+  return <Line ref={lineRef} start={position} />;
 };
 const Line = styled.div<{ start: number }>`
   z-index: 30;

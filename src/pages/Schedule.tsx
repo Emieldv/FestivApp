@@ -14,8 +14,6 @@ export const Schedule = () => {
     return <ErrorScreen error="Error | Schedule not found" />;
   }
 
-  // TODO add time indicator
-
   return (
     <>
       <Header title="Schedule" url="/schedule" select />
