@@ -26,17 +26,17 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
     loading: configLoading,
   } = useAirTable<ConfigData[]>("/config");
   const {
-    data: stages,
+    data: stagesData,
     error: stagesError,
     loading: stagesLoading,
   } = useAirTable<Stage[]>("/stages");
   const {
-    data: days,
+    data: daysData,
     error: daysError,
     loading: daysLoading,
   } = useAirTable<Day[]>("/days");
   const {
-    data: gigs,
+    data: gigsData,
     error: gigsError,
     loading: gigsLoading,
   } = useAirTable<Gig[]>("/gigs");
@@ -74,6 +74,13 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
   if (configError || gigsError || daysError || stagesError) {
     return <ErrorScreen error="Error retrieving data" />;
   }
+
+  // Filter out uncomplete & empty records
+  const stages = stagesData!.filter((stage) => stage.name);
+  const days = daysData!.filter((day) => day.name && day.start && day.end);
+  const gigs = gigsData!.filter(
+    (gig) => gig.name && gig.day && gig.stage && gig.start && gig.end
+  );
 
   const sortedDays = days!.sort(
     (x, y) => new Date(x.start).getTime() - new Date(y.start).getTime()
