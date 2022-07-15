@@ -1,14 +1,14 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { calculateTimelines } from "../../lib/calculate";
-import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
+import { calculateTimelines } from "../../lib/scheduleCalc";
+import { useSelectedDay } from "../../lib/hooks/useCurrentDay";
 import { sizes } from "../../lib/constants";
 import { useConfig } from "../../lib/hooks/useConfig";
 import { IColors } from "../../interfaces/data";
 
 export const ScheduleTimeline: FC = () => {
   const { Colors } = useConfig();
-  const day = useCurrentDay()!;
+  const day = useSelectedDay()!;
   const timelines = calculateTimelines(day);
 
   return (

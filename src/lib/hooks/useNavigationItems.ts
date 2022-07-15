@@ -10,11 +10,11 @@ import {
   ViewBoardsIcon,
   ViewGridIcon,
 } from "@heroicons/react/outline";
+import { startOfDay } from "date-fns";
 
 export interface NavigationItem {
   name: string;
-  // TODO typing
-  icon: any;
+  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
   url: string;
   baseUrl: string;
   routingUrl: string;
@@ -23,6 +23,14 @@ export interface NavigationItem {
 
 export function useNavigationItems(): NavigationItem[] {
   const { rawData, config } = useData();
+
+  // Show the nearest day or the first day if the festival is over
+  const dayId =
+    rawData.days.find(
+      (day) =>
+        startOfDay(new Date(day.start)).getTime() >=
+        startOfDay(new Date()).getTime()
+    )?.id || rawData.days[0].id;
 
   const routes = [
     {
@@ -34,10 +42,9 @@ export function useNavigationItems(): NavigationItem[] {
       component: HomePage,
     },
     {
-      // TODO Navigate to nearest day in the schedule
       name: "Schedule",
       icon: ViewBoardsIcon,
-      url: `/schedule/${rawData.days[0].id}`,
+      url: `/schedule/${dayId}`,
       baseUrl: "/schedule",
       routingUrl: "/schedule/:dayId",
       component: Schedule,
@@ -45,7 +52,7 @@ export function useNavigationItems(): NavigationItem[] {
     {
       name: "My line up",
       icon: ViewGridIcon,
-      url: `/lineup/${rawData.days[0].id}`,
+      url: `/lineup/${dayId}`,
       baseUrl: "/lineup",
       routingUrl: "/lineup/:dayId",
       component: LineUp,

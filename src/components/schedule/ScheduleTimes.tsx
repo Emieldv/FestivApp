@@ -1,12 +1,12 @@
 import { addHours, format, startOfHour } from "date-fns";
 import { FC } from "react";
 import styled from "styled-components";
-import { calculateTimelines } from "../../lib/calculate";
+import { calculateTimelines } from "../../lib/scheduleCalc";
 import { sizes } from "../../lib/constants";
-import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
+import { useSelectedDay } from "../../lib/hooks/useCurrentDay";
 
 export const ScheduleTimes: FC = (params) => {
-  const day = useCurrentDay()!;
+  const day = useSelectedDay()!;
   const timelines = calculateTimelines(day);
 
   const createHourLabel = (index: number) => {

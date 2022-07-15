@@ -1,41 +1,26 @@
 import { format } from "date-fns";
 import { FC } from "react";
 import styled from "styled-components";
-import { ErrorScreen } from "../components/ErrorScreen";
+import { GigDetail } from "../components/myLineUp/GigDetail";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { Header } from "../components/navigation/Header";
-import { Gig, Stage } from "../interfaces/data";
 import { sizes } from "../lib/constants";
-import { useCurrentDay } from "../lib/hooks/useCurrentDay";
-import { useData } from "../lib/hooks/useData";
-import { useStorage } from "../lib/hooks/useStorage";
-
-interface ILikedGigs extends Gig {
-  stageData: Stage;
-}
+import { useGetDayLikes } from "../lib/hooks/useGetDayLikes";
 
 export const LineUp: FC = () => {
-  const { rawData } = useData();
-  const day = useCurrentDay();
-  const { likes } = useStorage();
+  const likedGigs = useGetDayLikes();
 
-  if (!day) {
-    return <ErrorScreen error="Error | Line up not found" />;
+  if (!likedGigs?.length) {
+    return (
+      <>
+        <Header title="My line Up" url="/lineup" select />
+        <EmptyContainer>
+          <h1>No liked gigs yet</h1>
+        </EmptyContainer>
+        <BottomNavigation />
+      </>
+    );
   }
-
-  const likedGigs: ILikedGigs[] = day.gigs
-    .filter((gig) => likes.data.includes(gig))
-    .map((gig) => {
-      const gigData = rawData.gigs.find((data) => data.id === gig)!;
-      const stage = rawData.stages.find(
-        (stage) => stage.id === gigData.stage[0]
-      )!;
-      return {
-        ...gigData,
-        stageData: stage,
-      };
-    })
-    .sort((x, y) => new Date(x.start).getTime() - new Date(y.start).getTime());
 
   // TODO view as schedule
   return (
@@ -43,11 +28,7 @@ export const LineUp: FC = () => {
       <Header title="My line Up" url="/lineup" select />
       <Container>
         {likedGigs.map((gig, index) => (
-          <GigListItem key={index}>
-            <p>{gig.name}</p>
-            <p>{format(new Date(gig!.start), "HH:mm")}</p>
-            <p>{gig.stageData.name}</p>
-          </GigListItem>
+          <GigDetail key={index} gig={gig} />
         ))}
       </Container>
       <BottomNavigation />
@@ -59,9 +40,21 @@ const Container = styled.div`
   height: calc(
     100vh - ${sizes.bottomNavigationHeight} - ${sizes.pageHeaderHeight}
   );
+  overflow: scroll;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+`;
 
-  p {
-    margin: 0;
+const EmptyContainer = styled.div`
+  height: calc(
+    100vh - ${sizes.bottomNavigationHeight} - ${sizes.pageHeaderHeight}
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
     color: white;
   }
 `;
@@ -78,5 +71,6 @@ const GigListItem = styled.div`
   p {
     color: ${({ theme }) => theme.slotText};
     text-align: center;
+    margin: 0;
   }
 `;
