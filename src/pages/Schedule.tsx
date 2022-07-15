@@ -5,10 +5,10 @@ import { Header } from "../components/navigation/Header";
 import { ScheduleColumn } from "../components/schedule/ScheduleColumn";
 import { ScheduleTimes } from "../components/schedule/ScheduleTimes";
 import { sizes } from "../lib/constants";
-import { useCurrentDay } from "../lib/hooks/useCurrentDay";
+import { useSelectedDay } from "../lib/hooks/useCurrentDay";
 
 export const Schedule = () => {
-  const day = useCurrentDay();
+  const day = useSelectedDay();
 
   if (!day) {
     return <ErrorScreen error="Error | Schedule not found" />;

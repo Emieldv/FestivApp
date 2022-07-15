@@ -7,6 +7,7 @@ import {
   Day,
   DayFull,
   Gig,
+  GigFull,
   IColors,
   IDataContext,
   Stage,
@@ -97,6 +98,11 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
     })),
   }));
 
+  const fullGigs: GigFull[] = gigs.map((gig) => ({
+    ...gig,
+    stage: stages.find((stage) => stage.id === gig.stage[0])!,
+  }));
+
   const value = {
     rawData: {
       stages: stages!,
@@ -105,6 +111,7 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
     },
     data: {
       days: fullDays,
+      gigs: fullGigs,
     },
     config: {
       Colors: JSON.parse(config![0].Colors) as IColors,

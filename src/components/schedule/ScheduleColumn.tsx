@@ -2,9 +2,9 @@ import { isWithinInterval } from "date-fns";
 import { FC } from "react";
 import styled from "styled-components";
 import { StageFull } from "../../interfaces/data";
-import { calculateGridRows, calculateSlotHeight } from "../../lib/calculate";
+import { calculateGridRows, calculateSlotHeight } from "../../lib/scheduleCalc";
 import { sizes } from "../../lib/constants";
-import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
+import { useSelectedDay } from "../../lib/hooks/useCurrentDay";
 import { ScheduleSlot } from "./ScheduleSlot";
 import { ScheduleTimeline } from "./ScheduleTimeline";
 import { TimeIndicator } from "./TimeIndicator";
@@ -14,7 +14,7 @@ interface ScheduleColumnProps {
 }
 
 export const ScheduleColumn: FC<ScheduleColumnProps> = ({ stage }) => {
-  const currentDay = useCurrentDay()!;
+  const currentDay = useSelectedDay()!;
 
   const today = isWithinInterval(new Date(), {
     start: new Date(currentDay.start),

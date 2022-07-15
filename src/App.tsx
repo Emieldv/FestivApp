@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { ErrorScreen } from "./components/ErrorScreen";
 import { useNavigationItems } from "./lib/hooks/useNavigationItems";
 
+// TODO dynamically insert font
+
 function App() {
   const navigationItems = useNavigationItems();
 

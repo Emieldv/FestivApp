@@ -70,6 +70,10 @@ export interface DayFull extends Day {
   stages: StageFull[];
 }
 
+export interface GigFull extends Omit<Gig, "stage"> {
+  stage: Stage;
+}
+
 export interface IDataContext {
   rawData: {
     stages: Stage[];
@@ -78,6 +82,7 @@ export interface IDataContext {
   };
   data: {
     days: DayFull[];
+    gigs: GigFull[];
   };
   config: {
     Colors: IColors;

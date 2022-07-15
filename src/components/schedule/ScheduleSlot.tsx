@@ -2,8 +2,8 @@ import { FC } from "react";
 import { format } from "date-fns";
 import styled from "styled-components";
 import { Gig } from "../../interfaces/data";
-import { calculateGridPosition } from "../../lib/calculate";
-import { useCurrentDay } from "../../lib/hooks/useCurrentDay";
+import { calculateGridPosition } from "../../lib/scheduleCalc";
+import { useSelectedDay } from "../../lib/hooks/useCurrentDay";
 import { BookmarkIcon } from "@heroicons/react/outline";
 import { BookmarkIcon as LikedIcon } from "@heroicons/react/solid";
 import { useStorage } from "../../lib/hooks/useStorage";
@@ -15,7 +15,7 @@ interface ScheduleSlotProps {
 
 export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
   const { Colors } = useConfig();
-  const currentDay = useCurrentDay()!;
+  const currentDay = useSelectedDay()!;
   const { likes } = useStorage();
 
   const [start, end] = calculateGridPosition(
