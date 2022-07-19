@@ -4,7 +4,7 @@ import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { calculateTimeFrame } from "../lib/scheduleCalc";
 import { sizes } from "../lib/constants";
 import { useData } from "../lib/hooks/useData";
-import banner from "../assets/GentseFeesten.jpeg";
+import banner from "../assets/banner.jpg";
 import { useNextLikedGig } from "../lib/hooks/useNextGig";
 import { Timer } from "../components/home/Timer";
 import { NextGig } from "../components/home/NextGig";
