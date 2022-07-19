@@ -24,25 +24,33 @@ export function calculateGridPosition(
 }
 
 export function calculateTimelines(day: Day) {
-  const hours = Math.ceil(
+  const dayStartsOnHalfhour =
+    startOfHour(new Date(day.start)).getTime() !==
+    new Date(day.start).getTime();
+  const dayEndsOnHalfhour =
+    startOfHour(new Date(day.end)).getTime() !== new Date(day.end).getTime();
+
+  // Calculate how many hours / sections
+  let hours = Math.ceil(
     differenceInMinutes(new Date(day.end), new Date(day.start)) / 60
   );
 
+  // If day starts and ends on a half hour we need one more section
+  if (dayStartsOnHalfhour && dayEndsOnHalfhour) {
+    hours++;
+  }
+
   let array = [];
 
-  for (let i = 0; i <= hours; i++) {
+  for (let i = 1; i <= hours; i++) {
     const createArray = (color: string) => {
       if (
-        (i === 0 &&
-          startOfHour(new Date(day.start).getTime()).getTime() !==
-            new Date(day.start).getTime()) ||
-        (i === hours &&
-          startOfHour(new Date(day.end)).getTime() !==
-            new Date(day.end).getTime())
+        (i === 1 && dayStartsOnHalfhour) ||
+        (i === hours && dayEndsOnHalfhour)
       ) {
         return [color];
       } else {
-        return i !== hours ? [color, color] : [];
+        return [color, color];
       }
     };
 

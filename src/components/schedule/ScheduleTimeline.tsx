@@ -28,6 +28,7 @@ const Container = styled.div`
   width: 100%;
   height: fit-content;
   z-index: 10;
+  grid-area: 1 / 1;
 `;
 
 const Hour = styled.div`

@@ -67,6 +67,10 @@ const Slot = styled.div<SlotProps>`
   display: grid;
   grid-template-columns: auto 20px;
 
+  svg {
+    cursor: pointer;
+  }
+
   h3 {
     font-size: 21px;
     margin: 0;
