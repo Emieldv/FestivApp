@@ -1,13 +1,30 @@
 import { MusicNoteIcon } from "@heroicons/react/solid";
-import { format } from "date-fns";
-import { FC } from "react";
+import { format, formatDistanceToNow } from "date-fns";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { GigFull } from "../../interfaces/data";
 
 export const NextGig: FC<{ nextGig: GigFull }> = ({ nextGig }) => {
+  const calculateDistance = () => {
+    return formatDistanceToNow(new Date(nextGig.start));
+  };
+
+  const [distance, setDistance] = useState(calculateDistance());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDistance(calculateDistance());
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
-      <SmallTitle>Next gig:</SmallTitle>
+      <SmallTitle>
+        <h2>Next gig:</h2>
+        <p>In {distance}</p>
+      </SmallTitle>
       <NextGigContainer>
         <div>
           <h3>{nextGig.name}</h3>
@@ -61,12 +78,23 @@ const NextGigContainer = styled.div`
   }
 `;
 
-const SmallTitle = styled.h2`
-  font-size: 25px;
-  padding: 10px 15px 5px 15px;
-  margin: 0;
+const SmallTitle = styled.div`
   background-color: ${({ theme }) => theme.timerTitleBackground};
   color: ${({ theme }) => theme.timerTitleText};
+  padding: 10px 15px 5px 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  h2 {
+    font-size: 25px;
+    margin: 0;
+  }
+
+  p {
+    font-size: 20px;
+  }
 `;
 
 const Icon = styled(MusicNoteIcon)`
