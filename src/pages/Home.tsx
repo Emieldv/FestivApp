@@ -4,7 +4,6 @@ import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { calculateTimeFrame } from "../lib/scheduleCalc";
 import { sizes } from "../lib/constants";
 import { useData } from "../lib/hooks/useData";
-import banner from "../assets/GentseFeesten.jpeg";
 import { useNextLikedGig } from "../lib/hooks/useNextGig";
 import { Timer } from "../components/home/Timer";
 import { NextGig } from "../components/home/NextGig";
@@ -12,7 +11,7 @@ import { EndMessage } from "../components/home/EndMessage";
 
 export const Home: FC = () => {
   const nextGig = useNextLikedGig();
-  const { rawData } = useData();
+  const { rawData, config } = useData();
 
   const { future, present, past } = calculateTimeFrame(
     new Date(rawData.days[0].start),
@@ -23,7 +22,7 @@ export const Home: FC = () => {
     <>
       <Container>
         <Banner>
-          <img src={banner} alt="Banner" />
+          <img src={config.Banner} alt="Banner" />
         </Banner>
         {future && <Timer />}
         {present && nextGig && <NextGig nextGig={nextGig} />}

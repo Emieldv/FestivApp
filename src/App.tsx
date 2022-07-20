@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { ErrorScreen } from "./components/ErrorScreen";
 import { useNavigationItems } from "./lib/hooks/useNavigationItems";
 
-// TODO dynamically insert font
+// TODO somehow chache images from api
+// TODO Cache google font
 
 function App() {
   const navigationItems = useNavigationItems();
