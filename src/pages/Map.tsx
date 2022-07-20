@@ -5,15 +5,17 @@ import { sizes } from "../lib/constants";
 //@ts-ignore
 import { MapInteractionCSS } from "react-map-interaction";
 import { Header } from "../components/navigation/Header";
-import map from "../assets/map.jpeg";
+import { useData } from "../lib/hooks/useData";
 
 export const Map: FC = () => {
+  const { config } = useData();
+
   return (
     <>
       <Header title="Festival map" />
       <Container>
         <MapInteractionCSS minScale={0.5} maxScale={2}>
-          <Img src={map} alt="Map" />
+          <Img src={config.Map} alt="Map" />
         </MapInteractionCSS>
       </Container>
       <BottomNavigation />

@@ -60,6 +60,8 @@ export interface ConfigData {
   FestivalName: string;
   Colors: string;
   EnableMap: boolean;
+  Banner: [{ url: string }];
+  Map: [{ url: string }];
 }
 
 export interface StageFull extends Stage {
@@ -84,10 +86,10 @@ export interface IDataContext {
     days: DayFull[];
     gigs: GigFull[];
   };
-  config: {
+  config: Omit<ConfigData, "Colors" | "Banner" | "Map"> & {
     Colors: IColors;
-    FestivalName: string;
-    EnableMap: boolean;
+    Banner: string;
+    Map: string;
   };
 }
 

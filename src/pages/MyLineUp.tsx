@@ -22,7 +22,6 @@ export const LineUp: FC = () => {
     );
   }
 
-  // TODO view as schedule
   return (
     <>
       <Header title="My line Up" url="/lineup" select />
