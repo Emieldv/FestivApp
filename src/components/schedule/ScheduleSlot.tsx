@@ -75,6 +75,7 @@ const Slot = styled.div<SlotProps>`
     font-size: 21px;
     margin: 0;
     color: ${({ theme }) => theme.slotTitle};
+    hyphens: auto;
   }
 
   p {
