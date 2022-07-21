@@ -29,6 +29,8 @@ export const Home: FC = () => {
         {past && <EndMessage />}
       </Container>
       <BottomNavigation />
+      {/* This image is always hidden, by getting this image at app start it gets cached immediately by the service worker */}
+      {config.Map && <LoadImage src={config.Map} alt="Banner" />}
     </>
   );
 };
@@ -51,4 +53,8 @@ const Banner = styled.div`
     width: 100%;
     object-fit: cover;
   }
+`;
+
+const LoadImage = styled.img`
+  display: none;
 `;
