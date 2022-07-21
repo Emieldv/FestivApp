@@ -55,12 +55,10 @@ registerRoute(
 
 // Cache all external images
 registerRoute(
-  ({ request }) => request.destination === "image",
+  ({ url }) => url.pathname.startsWith("/.attachments/"),
   new NetworkFirst({
     cacheName: "images",
     plugins: [
-      // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used images are removed.
       new ExpirationPlugin({
         maxEntries: 10,
         maxAgeSeconds: 30 * 24 * 60 * 60,
