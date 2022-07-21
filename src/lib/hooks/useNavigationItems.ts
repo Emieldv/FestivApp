@@ -59,7 +59,7 @@ export function useNavigationItems(): NavigationItem[] {
     },
   ];
 
-  if (config.EnableMap) {
+  if (config.Map) {
     routes.push({
       name: "Map",
       icon: MapIcon,

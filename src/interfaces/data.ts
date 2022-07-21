@@ -59,9 +59,8 @@ export interface ConfigData {
   id: string;
   FestivalName: string;
   Colors: string;
-  EnableMap: boolean;
   Banner: [{ url: string }];
-  Map: [{ url: string }];
+  Map?: [{ url: string }];
 }
 
 export interface StageFull extends Stage {
@@ -89,7 +88,7 @@ export interface IDataContext {
   config: Omit<ConfigData, "Colors" | "Banner" | "Map"> & {
     Colors: IColors;
     Banner: string;
-    Map: string;
+    Map?: string;
   };
 }
 

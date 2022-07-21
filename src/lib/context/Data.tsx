@@ -117,7 +117,7 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
       ...config![0],
       Colors: JSON.parse(config![0].Colors) as IColors,
       Banner: config![0].Banner[0].url,
-      Map: config![0].Map[0].url,
+      Map: config![0].Map?.[0].url,
     },
   };
 

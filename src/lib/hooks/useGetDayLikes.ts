@@ -8,7 +8,7 @@ export function useGetDayLikes(): GigFull[] | null {
   const day = useSelectedDay();
   const { likes } = useStorage();
 
-  if (!day) {
+  if (!day || !day.gigs) {
     return null;
   }
 
