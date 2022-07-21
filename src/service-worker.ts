@@ -53,6 +53,21 @@ registerRoute(
   createHandlerBoundToURL(process.env.PUBLIC_URL + "/index.html")
 );
 
+// Cache The incoming data from Airtable
+registerRoute(
+  ({ url }) =>
+    url.pathname.startsWith(`/v0/${process.env.REACT_APP_AIRTABLE_KEY}/`),
+  new NetworkFirst({
+    cacheName: "airtableData",
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 20,
+        maxAgeSeconds: 30 * 24 * 60 * 60,
+      }),
+    ],
+  })
+);
+
 // Cache all external images
 registerRoute(
   ({ url }) => url.pathname.startsWith("/.attachments/"),

@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { FC } from "react";
 import styled from "styled-components";
 import { GigDetail } from "../components/myLineUp/GigDetail";
@@ -55,21 +54,5 @@ const EmptyContainer = styled.div`
 
   h1 {
     color: white;
-  }
-`;
-
-const GigListItem = styled.div`
-  background-color: ${({ theme }) => theme.slotBackground};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 2px solid ${({ theme }) => theme.background};
-  padding: 10px 0;
-
-  p {
-    color: ${({ theme }) => theme.slotText};
-    text-align: center;
-    margin: 0;
   }
 `;

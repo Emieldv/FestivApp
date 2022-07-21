@@ -42,31 +42,7 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
     loading: gigsLoading,
   } = useAirTable<Gig[]>("/gigs");
 
-  // Check if the app is offline
-  if (!window.navigator.onLine) {
-    const storage = localStorage.getItem("localData");
-
-    if (!storage) {
-      return (
-        <ErrorScreen error="Data cache empty, please connect to the internet to store data for offline usage" />
-      );
-    }
-
-    const value = JSON.parse(storage);
-    return (
-      <DataContext.Provider value={value}>
-        <ThemeProvider
-          theme={{
-            ...value.config.Colors,
-          }}
-        >
-          {children}
-        </ThemeProvider>
-      </DataContext.Provider>
-    );
-  }
-
-  // Still loading?
+  // Show loading while waiting on data
   if (configLoading || gigsLoading || daysLoading || stagesLoading) {
     return <Loader />;
   }
@@ -120,8 +96,6 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
       Map: config![0].Map?.[0].url,
     },
   };
-
-  localStorage.setItem("localData", JSON.stringify(value));
 
   return (
     <DataContext.Provider value={value}>
