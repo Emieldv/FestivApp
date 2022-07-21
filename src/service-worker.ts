@@ -61,7 +61,7 @@ registerRoute(
     cacheName: "airtableData",
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 20,
+        maxEntries: 8,
         maxAgeSeconds: 30 * 24 * 60 * 60,
       }),
     ],
@@ -75,7 +75,7 @@ registerRoute(
     cacheName: "images",
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 10,
+        maxEntries: 4,
         maxAgeSeconds: 30 * 24 * 60 * 60,
       }),
     ],
