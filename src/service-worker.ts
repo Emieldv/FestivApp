@@ -12,7 +12,7 @@ import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
+import { NetworkFirst } from "workbox-strategies";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -56,7 +56,7 @@ registerRoute(
 // Cache all external images
 registerRoute(
   ({ request }) => request.destination === "image",
-  new CacheFirst({
+  new NetworkFirst({
     cacheName: "images",
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
