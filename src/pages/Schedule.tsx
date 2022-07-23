@@ -55,4 +55,11 @@ const ScheduleContainer = styled.div<ScheduleContainerProps>`
     columns > 2 ? (columns * 200).toString() + "px" : "100vw"};
   display: grid;
   grid-template-columns: 0px 60px repeat(${({ columns }) => columns}, 1fr);
+
+  // Remove border on last schedule header
+  div:last-of-type {
+    .header {
+      border-right: none;
+    }
+  }
 `;

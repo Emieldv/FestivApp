@@ -23,7 +23,7 @@ export const ScheduleColumn: FC<ScheduleColumnProps> = ({ stage }) => {
 
   return (
     <Column>
-      <Header>
+      <Header className="header">
         <p>{stage.name}</p>
       </Header>
       <ScheduleBody
