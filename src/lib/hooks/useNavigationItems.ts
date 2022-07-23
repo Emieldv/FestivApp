@@ -10,7 +10,7 @@ import {
   ViewBoardsIcon,
   ViewGridIcon,
 } from "@heroicons/react/outline";
-import { startOfDay } from "date-fns";
+import { isWithinInterval } from "date-fns";
 
 export interface NavigationItem {
   name: string;
@@ -24,13 +24,21 @@ export interface NavigationItem {
 export function useNavigationItems(): NavigationItem[] {
   const { rawData, config } = useData();
 
-  // Show the nearest day or the first day if the festival is over
-  const dayId =
-    rawData.days.find(
-      (day) =>
-        startOfDay(new Date(day.start)).getTime() >=
-        startOfDay(new Date()).getTime()
-    )?.id || rawData.days[0].id;
+  // Check if we are in the middle of a festival day
+  const currentDay = rawData.days.find((day) =>
+    isWithinInterval(new Date(), {
+      start: new Date(day.start),
+      end: new Date(day.end),
+    })
+  )?.id;
+
+  // Calculate the nearest day in the future
+  const nearestDay = rawData.days.find(
+    (day) => new Date(day.start).getTime() >= new Date().getTime()
+  )?.id;
+
+  // Otherwise get the first day of the festival
+  const dayId = currentDay || nearestDay || rawData.days[0].id;
 
   const routes = [
     {
