@@ -52,15 +52,16 @@ export interface Gig {
   end: string;
   stage: string;
   day: string;
+  notes?: string;
 }
 
 export interface ConfigData {
   createdTime: string;
   id: string;
-  FestivalName: string;
-  Colors: string;
-  Banner: [{ url: string }];
-  Map?: [{ url: string }];
+  festivalName: string;
+  colors: string;
+  banner: [{ url: string }];
+  map?: [{ url: string }];
 }
 
 export interface StageFull extends Stage {
@@ -85,10 +86,10 @@ export interface IDataContext {
     days: DayFull[];
     gigs: GigFull[];
   };
-  config: Omit<ConfigData, "Colors" | "Banner" | "Map"> & {
-    Colors: IColors;
-    Banner: string;
-    Map?: string;
+  config: Omit<ConfigData, "colors" | "banner" | "map"> & {
+    colors: IColors;
+    banner: string;
+    map?: string;
   };
 }
 

@@ -22,7 +22,7 @@ export const Home: FC = () => {
     <>
       <Container>
         <Banner>
-          <img src={config.Banner} alt="Banner" />
+          <img src={config.banner} alt="Banner" />
         </Banner>
         {future && <Timer />}
         {present && nextGig && <NextGig nextGig={nextGig} />}
@@ -30,7 +30,7 @@ export const Home: FC = () => {
       </Container>
       <BottomNavigation />
       {/* This image is always hidden, by getting this image at app start it gets cached immediately by the service worker */}
-      {config.Map && <LoadImage src={config.Map} alt="Banner" />}
+      {config.map && <LoadImage src={config.map} alt="Banner" />}
     </>
   );
 };

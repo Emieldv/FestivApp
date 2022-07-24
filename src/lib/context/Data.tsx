@@ -91,9 +91,9 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
     },
     config: {
       ...config![0],
-      Colors: JSON.parse(config![0].Colors) as IColors,
-      Banner: config![0].Banner[0].url,
-      Map: config![0].Map?.[0].url,
+      colors: JSON.parse(config![0].colors) as IColors,
+      banner: config![0].banner[0].url,
+      map: config![0].map?.[0].url,
     },
   };
 
@@ -101,7 +101,7 @@ export const DataProvider: FC<DataProviderProps> = ({ children }) => {
     <DataContext.Provider value={value}>
       <ThemeProvider
         theme={{
-          ...value.config.Colors,
+          ...value.config.colors,
         }}
       >
         {children}
