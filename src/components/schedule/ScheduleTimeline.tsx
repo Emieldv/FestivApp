@@ -7,7 +7,7 @@ import { useConfig } from "../../lib/hooks/useConfig";
 import { IColors } from "../../interfaces/data";
 
 export const ScheduleTimeline: FC = () => {
-  const { Colors } = useConfig();
+  const { colors } = useConfig();
   const day = useSelectedDay()!;
   const timelines = calculateTimelines(day);
 
@@ -16,7 +16,7 @@ export const ScheduleTimeline: FC = () => {
       {timelines.map((item, key) => (
         <Hour key={key}>
           {item.map((color, key) => (
-            <HalfHour key={key} color={color} $colors={Colors} />
+            <HalfHour key={key} color={color} $colors={colors} />
           ))}
         </Hour>
       ))}

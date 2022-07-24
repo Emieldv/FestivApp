@@ -15,7 +15,7 @@ export const Map: FC = () => {
       <Header title="Festival map" />
       <Container>
         <MapInteractionCSS minScale={0.5} maxScale={2}>
-          <Img src={config.Map} alt="Map" />
+          <Img src={config.map} alt="Map" />
         </MapInteractionCSS>
       </Container>
       <BottomNavigation />

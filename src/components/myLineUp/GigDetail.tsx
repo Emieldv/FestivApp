@@ -7,7 +7,7 @@ import { useConfig } from "../../lib/hooks/useConfig";
 import { useStorage } from "../../lib/hooks/useStorage";
 
 export const GigDetail: FC<{ gig: GigFull }> = ({ gig }) => {
-  const { Colors } = useConfig();
+  const { colors } = useConfig();
   const { likes } = useStorage();
   const past = isPast(new Date(gig.end));
 
@@ -27,7 +27,7 @@ export const GigDetail: FC<{ gig: GigFull }> = ({ gig }) => {
           </p>
         </div>
       </div>
-      <BookmarkIcon color={Colors.slotSelectedText} onClick={handleLike} />
+      <BookmarkIcon color={colors.slotSelectedText} onClick={handleLike} />
     </NextGigContainer>
   );
 };

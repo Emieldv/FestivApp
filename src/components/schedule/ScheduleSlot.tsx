@@ -14,7 +14,7 @@ interface ScheduleSlotProps {
 }
 
 export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
-  const { Colors } = useConfig();
+  const { colors } = useConfig();
   const currentDay = useSelectedDay()!;
   const { likes } = useStorage();
 
@@ -35,15 +35,16 @@ export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
     <Slot start={start} end={end} className={liked ? "liked" : ""}>
       <div>
         <h3>{band.name}</h3>
+        {band.notes && <p className="notes">{band.notes}</p>}
         <p>
           {format(new Date(band.start), "HH:mm")} -{" "}
           {format(new Date(band.end), "HH:mm")}
         </p>
       </div>
       {liked ? (
-        <LikedIcon color={Colors.slotSelectedText} onClick={handleLike} />
+        <LikedIcon color={colors.slotSelectedText} onClick={handleLike} />
       ) : (
-        <BookmarkIcon color={Colors.slotText} onClick={handleLike} />
+        <BookmarkIcon color={colors.slotText} onClick={handleLike} />
       )}
     </Slot>
   );
@@ -72,7 +73,7 @@ const Slot = styled.div<SlotProps>`
   }
 
   h3 {
-    font-size: 21px;
+    font-size: 25px;
     margin: 0;
     color: ${({ theme }) => theme.slotTitle};
     hyphens: auto;
@@ -83,6 +84,16 @@ const Slot = styled.div<SlotProps>`
     font-weight: 500;
     font-size: 18px;
     color: ${({ theme }) => theme.slotText};
+  }
+
+  p.notes {
+    opacity: 80%;
+    padding-bottom: 5px;
+  }
+
+  p:last-of-type {
+    font-weight: 600;
+    font-size: 22px;
   }
 
   &.liked {

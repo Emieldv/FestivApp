@@ -18,7 +18,7 @@ export const Header: FC<TopNavigationProps> = ({
   url,
   select = false,
 }) => {
-  const { Colors } = useConfig();
+  const { colors } = useConfig();
   const navigate = useNavigate();
   const { rawData } = useData();
   const { dayId } = useParams();
@@ -42,7 +42,7 @@ export const Header: FC<TopNavigationProps> = ({
             options={options}
             value={value}
             onChange={handleChange}
-            styles={selectStyle(Colors)}
+            styles={selectStyle(colors)}
             isSearchable={false}
           />
         ) : (

@@ -6,7 +6,7 @@ import { useData } from "../../lib/hooks/useData";
 import { secondsToTime } from "../../lib/timerCalc";
 
 export const Timer: FC = () => {
-  const { FestivalName } = useConfig();
+  const { festivalName } = useConfig();
   const { rawData } = useData();
 
   const [timer, setTimer] = useState({
@@ -34,7 +34,7 @@ export const Timer: FC = () => {
 
   return (
     <>
-      <Title>Time until {FestivalName}</Title>
+      <Title>Time until {festivalName}</Title>
       <TimerContainer>
         <div>
           <h2>{timer.d}</h2>
