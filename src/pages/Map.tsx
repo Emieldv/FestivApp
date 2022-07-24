@@ -6,12 +6,14 @@ import { sizes } from "../lib/constants";
 import { MapInteractionCSS } from "react-map-interaction";
 import { Header } from "../components/navigation/Header";
 import { useData } from "../lib/hooks/useData";
+import { TopNavigation } from "../components/navigation/Topnavigation";
 
 export const Map: FC = () => {
   const { config } = useData();
 
   return (
     <>
+      <TopNavigation />
       <Header title="Festival map" />
       <Container>
         <MapInteractionCSS minScale={0.5} maxScale={2}>
@@ -28,13 +30,13 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: calc(
-    100vh - ${sizes.bottomNavigationHeight} - ${sizes.pageHeaderHeight}
+    100vh - ${sizes.mainNavigationHeight} - ${sizes.pageHeaderHeight}
   );
 `;
 
 const Img = styled.img`
   height: calc(
-    100vh - ${sizes.bottomNavigationHeight} - ${sizes.pageHeaderHeight}
+    100vh - ${sizes.mainNavigationHeight} - ${sizes.pageHeaderHeight}
   );
   margin: auto;
   transform: translateX(-25%);

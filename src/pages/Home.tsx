@@ -8,6 +8,7 @@ import { useNextLikedGig } from "../lib/hooks/useNextGig";
 import { Timer } from "../components/home/Timer";
 import { NextGig } from "../components/home/NextGig";
 import { EndMessage } from "../components/home/EndMessage";
+import { TopNavigation } from "../components/navigation/Topnavigation";
 
 export const Home: FC = () => {
   const nextGig = useNextLikedGig();
@@ -20,6 +21,7 @@ export const Home: FC = () => {
 
   return (
     <>
+      <TopNavigation />
       <Container>
         <Banner>
           <img src={config.banner} alt="Banner" />
@@ -36,7 +38,7 @@ export const Home: FC = () => {
 };
 
 const Container = styled.div`
-  height: calc(100vh - ${sizes.bottomNavigationHeight});
+  height: calc(100vh - ${sizes.mainNavigationHeight});
   color: white;
 
   p {

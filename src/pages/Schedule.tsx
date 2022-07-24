@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ErrorScreen } from "../components/ErrorScreen";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { Header } from "../components/navigation/Header";
+import { TopNavigation } from "../components/navigation/Topnavigation";
 import { ScheduleColumn } from "../components/schedule/ScheduleColumn";
 import { ScheduleTimes } from "../components/schedule/ScheduleTimes";
 import { sizes } from "../lib/constants";
@@ -16,6 +17,7 @@ export const Schedule = () => {
 
   return (
     <>
+      <TopNavigation />
       <Header title="Schedule" url="/schedule" select />
       <Container>
         <ScheduleContainer columns={day.stages.length}>
@@ -42,7 +44,7 @@ export const Schedule = () => {
 const Container = styled.div`
   overflow: scroll;
   height: calc(
-    100vh - ${sizes.pageHeaderHeight} - ${sizes.bottomNavigationHeight}
+    100vh - ${sizes.pageHeaderHeight} - ${sizes.mainNavigationHeight}
   );
 `;
 
