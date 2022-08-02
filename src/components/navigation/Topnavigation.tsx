@@ -4,37 +4,67 @@ import {
   NavigationItem,
   useNavigationItems,
 } from "../../lib/hooks/useNavigationItems";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // @ts-ignore
 import cursorCur from "../../assets/cursor/hand.cur";
 import cursorPng from "../../assets/cursor/hand.png";
 import cursorGif from "../../assets/cursor/hand.gif";
 import { useConfig } from "../../lib/hooks/useConfig";
-
-// TODO change schedule and my lineup to select day
+import Select, { StylesConfig } from "react-select";
+import { IColors } from "../../interfaces/data";
 
 export const TopNavigation = () => {
   const navigationItems = useNavigationItems();
-  const { logo } = useConfig();
+  const { logo, colors } = useConfig();
+  const navigate = useNavigate();
+  const { dayId } = useParams();
 
   const active = (url: string) => {
     return window.location.pathname.includes(url);
   };
+
+  const handleChange = (url: string, id: string) => {
+    navigate(`..${url}/${id}`);
+  };
+
   return (
     <Container navigationItems={navigationItems}>
       <TitleContainer to={"/home"}>
         <img src={logo} alt="Logo" />
       </TitleContainer>
       <NavigationContainer>
-        {navigationItems.map((item, index) => (
-          <ItemContainer
-            key={index}
-            to={item.url}
-            $active={active(item.baseUrl)}
-          >
-            <p>{item.name}</p>
-          </ItemContainer>
-        ))}
+        {navigationItems.map((item, index) =>
+          item.pages?.length && item.pages?.length > 1 ? (
+            <Select
+              key={index}
+              options={item.pages}
+              placeholder={`${item.name} ${
+                active(item.baseUrl)
+                  ? "- " +
+                    item.pages.find((option) => dayId === option.value)?.label
+                  : ""
+              }`}
+              value={
+                active(item.baseUrl) &&
+                item.pages.find((option) => dayId === option.value)
+              }
+              isSearchable={false}
+              styles={selectStyle(colors)}
+              onChange={(option: any) =>
+                handleChange(item.baseUrl, option.value)
+              }
+              controlShouldRenderValue={false}
+            />
+          ) : (
+            <ItemContainer
+              key={index}
+              to={item.url}
+              $active={active(item.baseUrl)}
+            >
+              <p>{item.name}</p>
+            </ItemContainer>
+          )
+        )}
       </NavigationContainer>
     </Container>
   );
@@ -102,3 +132,44 @@ const ItemContainer = styled(Link)<{ $active: boolean }>`
     font-size: 20px;
   }
 `;
+
+const selectStyle = (colors: IColors): StylesConfig => ({
+  container: (old: any) => ({
+    ...old,
+    zIndex: 200,
+    paddingLeft: "15px",
+    marginRight: "-5px",
+  }),
+  control: (old: any) => ({
+    ...old,
+    backgroundColor: "transparent",
+    border: "none",
+    paddingTop: "5px",
+  }),
+  singleValue: (old: any) => ({
+    ...old,
+    color: colors.navigationIconActive,
+    fontSize: "20px",
+  }),
+  indicatorSeparator: () => ({
+    display: "none",
+  }),
+  valueContainer: (old: any) => ({
+    ...old,
+    paddingRight: 0,
+    marginRight: "-5px",
+  }),
+  dropdownIndicator: (old: any) => ({
+    ...old,
+    color: colors.navigationIcon,
+  }),
+  placeholder: (old: any, state: any) => {
+    const active = state.hasValue;
+
+    return {
+      ...old,
+      color: active ? colors.navigationIconActive : colors.navigationIcon,
+      fontSize: "20px",
+    };
+  },
+});
