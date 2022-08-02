@@ -63,6 +63,7 @@ export interface ConfigData {
   banner: [{ url: string }];
   logo: [{ url: string }];
   map?: [{ url: string }];
+  twitterUserName?: string;
 }
 
 export interface StageFull extends Stage {

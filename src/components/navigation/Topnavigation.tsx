@@ -13,7 +13,7 @@ import { useConfig } from "../../lib/hooks/useConfig";
 
 export const TopNavigation = () => {
   const navigationItems = useNavigationItems();
-  const { festivalName, logo } = useConfig();
+  const { logo } = useConfig();
 
   const active = (url: string) => {
     return window.location.pathname.includes(url);
@@ -22,7 +22,6 @@ export const TopNavigation = () => {
     <Container navigationItems={navigationItems}>
       <TitleContainer to={"/home"}>
         <img src={logo} alt="Logo" />
-        <h1>{festivalName}</h1>
       </TitleContainer>
       <NavigationContainer>
         {navigationItems.map((item, index) => (
@@ -80,7 +79,7 @@ const TitleContainer = styled(Link)`
   }
 
   img {
-    height: 90%;
+    height: 80%;
   }
 `;
 

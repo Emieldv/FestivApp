@@ -39,7 +39,7 @@ const Img = styled.img`
     100vh - ${sizes.mainNavigationHeight} - ${sizes.pageHeaderHeight}
   );
   margin: auto;
-  transform: translateX(-25%);
+  transform: translateX(-15%);
 
   @media screen and (min-width: 40em) and (max-width: 63.9375em) {
     transform: translateX(0);

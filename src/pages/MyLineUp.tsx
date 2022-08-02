@@ -13,6 +13,7 @@ export const LineUp: FC = () => {
   if (!likedGigs?.length) {
     return (
       <>
+        <TopNavigation />
         <Header title="My line Up" url="/lineup" select />
         <EmptyContainer>
           <h1>No liked gigs yet</h1>
@@ -44,7 +45,6 @@ const Container = styled.div`
   display: flex;
   gap: 5px;
   flex-direction: column;
-  padding-top: 5px;
 
   @media screen and (min-width: 39em) {
     padding: 5px 20px;
