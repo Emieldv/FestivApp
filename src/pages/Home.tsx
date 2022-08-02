@@ -12,6 +12,7 @@ import { TopNavigation } from "../components/navigation/Topnavigation";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 export const Home: FC = () => {
+  const onLine = window.navigator.onLine;
   const nextGig = useNextLikedGig();
   const { rawData, config } = useData();
 
@@ -30,7 +31,7 @@ export const Home: FC = () => {
         {future && <Timer />}
         {present && nextGig && <NextGig nextGig={nextGig} />}
         {past && <EndMessage />}
-        {config.twitterUserName && (
+        {config.twitterUserName && onLine && (
           <TwitterEmbed>
             <TwitterTimelineEmbed
               sourceType="profile"

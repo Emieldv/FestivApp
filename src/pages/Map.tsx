@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
-import { sizes } from "../lib/constants";
+import { breakpoints, sizes } from "../lib/constants";
 //@ts-ignore
 import { MapInteractionCSS } from "react-map-interaction";
 import { Header } from "../components/navigation/Header";
@@ -32,6 +32,10 @@ const Container = styled.div`
   height: calc(
     100vh - ${sizes.mainNavigationHeight} - ${sizes.pageHeaderHeight}
   );
+
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) {
+    height: calc(100vh - ${sizes.mainNavigationHeight});
+  }
 `;
 
 const Img = styled.img`
@@ -39,13 +43,16 @@ const Img = styled.img`
     100vh - ${sizes.mainNavigationHeight} - ${sizes.pageHeaderHeight}
   );
   margin: auto;
-  transform: translateX(-15%);
 
-  @media screen and (min-width: 40em) and (max-width: 63.9375em) {
-    transform: translateX(0);
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) {
+    height: calc(100vh - ${sizes.mainNavigationHeight});
   }
 
-  @media screen and (min-width: 64em) {
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) and (max-width: ${breakpoints.tabletLandscape}) {
+    transform: translateX(25%);
+  }
+
+  @media screen and (min-width: ${breakpoints.tabletLandscape}) {
     transform: translateX(50%);
   }
 `;

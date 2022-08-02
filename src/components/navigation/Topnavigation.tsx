@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { sizes } from "../../lib/constants";
+import { breakpoints, sizes } from "../../lib/constants";
 import {
   NavigationItem,
   useNavigationItems,
@@ -10,6 +10,8 @@ import cursorCur from "../../assets/cursor/hand.cur";
 import cursorPng from "../../assets/cursor/hand.png";
 import cursorGif from "../../assets/cursor/hand.gif";
 import { useConfig } from "../../lib/hooks/useConfig";
+
+// TODO change schedule and my lineup to select day
 
 export const TopNavigation = () => {
   const navigationItems = useNavigationItems();
@@ -43,21 +45,20 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-  height: ${sizes.mainNavigationHeight};
-  padding: 0 20px;
-  background-color: ${({ theme }) => theme.navigationIconActive};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  grid-template-columns: repeat(
-    ${({ navigationItems }) => navigationItems.length},
-    1fr
-  );
-
-  // TODO breakpoint constants
-  @media screen and (max-width: 39em) {
-    display: none;
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) {
+    height: ${sizes.mainNavigationHeight};
+    padding: 0 20px;
+    background-color: ${({ theme }) => theme.navigation};
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-template-columns: repeat(
+      ${({ navigationItems }) => navigationItems.length},
+      1fr
+    );
   }
+
+  display: none;
 `;
 
 const TitleContainer = styled(Link)`
@@ -65,8 +66,6 @@ const TitleContainer = styled(Link)`
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
-  /* TODO colors for navigation */
-  color: white;
   object-fit: contain;
   overflow: hidden;
   height: 100%;
@@ -74,8 +73,7 @@ const TitleContainer = styled(Link)`
   h1 {
     margin: 0;
     padding-left: 10px;
-    // TODO COLOR
-    color: white;
+    color: ${({ theme }) => theme.navigationIcon};
   }
 
   img {
@@ -91,7 +89,7 @@ const NavigationContainer = styled.div`
 
 const ItemContainer = styled(Link)<{ $active: boolean }>`
   color: ${({ $active, theme }) =>
-    $active ? theme.navigation : theme.navigationIcon};
+    $active ? theme.navigationIconActive : theme.navigationIcon};
   text-decoration: none;
 
   padding-left: 20px;

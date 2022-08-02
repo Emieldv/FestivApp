@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { sizes } from "../../lib/constants";
+import { breakpoints, sizes } from "../../lib/constants";
 import Select, { StylesConfig } from "react-select";
 import { useParams, useNavigate } from "react-router-dom";
 import { useData } from "../../lib/hooks/useData";
@@ -59,6 +59,10 @@ const Container = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.navigation};
   padding: 0 20px;
+
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) {
+    display: none;
+  }
 
   h1 {
     text-transform: uppercase;

@@ -5,7 +5,7 @@ import { Header } from "../components/navigation/Header";
 import { TopNavigation } from "../components/navigation/Topnavigation";
 import { ScheduleColumn } from "../components/schedule/ScheduleColumn";
 import { ScheduleTimes } from "../components/schedule/ScheduleTimes";
-import { sizes } from "../lib/constants";
+import { breakpoints, sizes } from "../lib/constants";
 import { useSelectedDay } from "../lib/hooks/useCurrentDay";
 
 export const Schedule = () => {
@@ -46,6 +46,10 @@ const Container = styled.div`
   height: calc(
     100vh - ${sizes.pageHeaderHeight} - ${sizes.mainNavigationHeight}
   );
+
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) {
+    height: calc(100vh - ${sizes.mainNavigationHeight});
+  }
 `;
 
 interface ScheduleContainerProps {
