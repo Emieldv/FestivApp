@@ -29,7 +29,7 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-  height: ${sizes.bottomNavigationHeight};
+  height: ${sizes.mainNavigationHeight};
   background-color: ${({ theme }) => theme.navigation};
   display: grid;
   justify-content: center;
@@ -38,6 +38,11 @@ const Container = styled.div<ContainerProps>`
     ${({ navigationItems }) => navigationItems.length},
     1fr
   );
+
+  // TODO breakpoint constants
+  @media screen and (min-width: 40em) {
+    display: none;
+  }
 `;
 
 const ItemContainer = styled(Link)<{ $active: boolean }>`

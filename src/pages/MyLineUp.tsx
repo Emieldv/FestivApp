@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { GigDetail } from "../components/myLineUp/GigDetail";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { Header } from "../components/navigation/Header";
+import { TopNavigation } from "../components/navigation/Topnavigation";
 import { sizes } from "../lib/constants";
 import { useGetDayLikes } from "../lib/hooks/useGetDayLikes";
 
@@ -12,6 +13,7 @@ export const LineUp: FC = () => {
   if (!likedGigs?.length) {
     return (
       <>
+        <TopNavigation />
         <Header title="My line Up" url="/lineup" select />
         <EmptyContainer>
           <h1>No liked gigs yet</h1>
@@ -23,6 +25,7 @@ export const LineUp: FC = () => {
 
   return (
     <>
+      <TopNavigation />
       <Header title="My line Up" url="/lineup" select />
       <Container>
         {likedGigs.map((gig, index) => (
@@ -36,17 +39,21 @@ export const LineUp: FC = () => {
 
 const Container = styled.div`
   height: calc(
-    100vh - ${sizes.bottomNavigationHeight} - ${sizes.pageHeaderHeight}
+    100vh - ${sizes.mainNavigationHeight} - ${sizes.pageHeaderHeight}
   );
   overflow: scroll;
   display: flex;
   gap: 5px;
   flex-direction: column;
+
+  @media screen and (min-width: 39em) {
+    padding: 5px 20px;
+  }
 `;
 
 const EmptyContainer = styled.div`
   height: calc(
-    100vh - ${sizes.bottomNavigationHeight} - ${sizes.pageHeaderHeight}
+    100vh - ${sizes.mainNavigationHeight} - ${sizes.pageHeaderHeight}
   );
   display: flex;
   justify-content: center;

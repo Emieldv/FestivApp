@@ -40,6 +40,10 @@ const NextGigContainer = styled.div`
   display: grid;
   grid-template-columns: auto min-content;
 
+  :first-of-type {
+    margin-top: 5px;
+  }
+
   svg {
     height: 25px;
     transform: scaleX(130%) scaleY(105%);

@@ -61,7 +61,9 @@ export interface ConfigData {
   festivalName: string;
   colors: string;
   banner: [{ url: string }];
+  logo: [{ url: string }];
   map?: [{ url: string }];
+  twitterUserName?: string;
 }
 
 export interface StageFull extends Stage {
@@ -86,8 +88,9 @@ export interface IDataContext {
     days: DayFull[];
     gigs: GigFull[];
   };
-  config: Omit<ConfigData, "colors" | "banner" | "map"> & {
+  config: Omit<ConfigData, "colors" | "logo" | "banner" | "map"> & {
     colors: IColors;
+    logo: string;
     banner: string;
     map?: string;
   };

@@ -33,7 +33,7 @@ export const Timer: FC = () => {
   }, []);
 
   return (
-    <>
+    <div>
       <Title>Time until {festivalName}</Title>
       <TimerContainer>
         <div>
@@ -53,14 +53,14 @@ export const Timer: FC = () => {
           <h3>Seconds</h3>
         </div>
       </TimerContainer>
-    </>
+    </div>
   );
 };
 
 const Title = styled.h2`
   background-color: ${({ theme }) => theme.timerTitleBackground};
   color: ${({ theme }) => theme.timerTitleText};
-  width: 100vw;
+  width: 100%;
   margin: 0;
   margin-bottom: 1px;
   padding: 10px 0;
@@ -74,7 +74,7 @@ const TimerContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100px;
-  width: 100vw;
+  width: 100%;
   background-color: ${({ theme }) => theme.timerBackground};
   color: ${({ theme }) => theme.timerText};
 
