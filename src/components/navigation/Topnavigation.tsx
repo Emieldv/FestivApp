@@ -1,38 +1,70 @@
 import styled from "styled-components";
-import { sizes } from "../../lib/constants";
+import { breakpoints, sizes } from "../../lib/constants";
 import {
   NavigationItem,
   useNavigationItems,
 } from "../../lib/hooks/useNavigationItems";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // @ts-ignore
 import cursorCur from "../../assets/cursor/hand.cur";
 import cursorPng from "../../assets/cursor/hand.png";
 import cursorGif from "../../assets/cursor/hand.gif";
 import { useConfig } from "../../lib/hooks/useConfig";
+import Select, { StylesConfig } from "react-select";
+import { IColors } from "../../interfaces/data";
 
 export const TopNavigation = () => {
   const navigationItems = useNavigationItems();
-  const { logo } = useConfig();
+  const { logo, colors } = useConfig();
+  const navigate = useNavigate();
+  const { dayId } = useParams();
 
   const active = (url: string) => {
     return window.location.pathname.includes(url);
   };
+
+  const handleChange = (url: string, id: string) => {
+    navigate(`..${url}/${id}`);
+  };
+
   return (
     <Container navigationItems={navigationItems}>
       <TitleContainer to={"/home"}>
         <img src={logo} alt="Logo" />
       </TitleContainer>
       <NavigationContainer>
-        {navigationItems.map((item, index) => (
-          <ItemContainer
-            key={index}
-            to={item.url}
-            $active={active(item.baseUrl)}
-          >
-            <p>{item.name}</p>
-          </ItemContainer>
-        ))}
+        {navigationItems.map((item, index) =>
+          item.pages?.length && item.pages?.length > 1 ? (
+            <Select
+              key={index}
+              options={item.pages}
+              placeholder={`${item.name} ${
+                active(item.baseUrl)
+                  ? "- " +
+                    item.pages.find((option) => dayId === option.value)?.label
+                  : ""
+              }`}
+              value={
+                active(item.baseUrl) &&
+                item.pages.find((option) => dayId === option.value)
+              }
+              isSearchable={false}
+              styles={selectStyle(colors)}
+              onChange={(option: any) =>
+                handleChange(item.baseUrl, option.value)
+              }
+              controlShouldRenderValue={false}
+            />
+          ) : (
+            <ItemContainer
+              key={index}
+              to={item.url}
+              $active={active(item.baseUrl)}
+            >
+              <p>{item.name}</p>
+            </ItemContainer>
+          )
+        )}
       </NavigationContainer>
     </Container>
   );
@@ -43,21 +75,20 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-  height: ${sizes.mainNavigationHeight};
-  padding: 0 20px;
-  background-color: ${({ theme }) => theme.navigationIconActive};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  grid-template-columns: repeat(
-    ${({ navigationItems }) => navigationItems.length},
-    1fr
-  );
-
-  // TODO breakpoint constants
-  @media screen and (max-width: 39em) {
-    display: none;
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) {
+    height: ${sizes.mainNavigationHeight};
+    padding: 0 20px;
+    background-color: ${({ theme }) => theme.navigation};
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-template-columns: repeat(
+      ${({ navigationItems }) => navigationItems.length},
+      1fr
+    );
   }
+
+  display: none;
 `;
 
 const TitleContainer = styled(Link)`
@@ -65,8 +96,6 @@ const TitleContainer = styled(Link)`
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
-  /* TODO colors for navigation */
-  color: white;
   object-fit: contain;
   overflow: hidden;
   height: 100%;
@@ -74,8 +103,7 @@ const TitleContainer = styled(Link)`
   h1 {
     margin: 0;
     padding-left: 10px;
-    // TODO COLOR
-    color: white;
+    color: ${({ theme }) => theme.navigationIcon};
   }
 
   img {
@@ -91,7 +119,7 @@ const NavigationContainer = styled.div`
 
 const ItemContainer = styled(Link)<{ $active: boolean }>`
   color: ${({ $active, theme }) =>
-    $active ? theme.navigation : theme.navigationIcon};
+    $active ? theme.navigationIconActive : theme.navigationIcon};
   text-decoration: none;
 
   padding-left: 20px;
@@ -104,3 +132,44 @@ const ItemContainer = styled(Link)<{ $active: boolean }>`
     font-size: 20px;
   }
 `;
+
+const selectStyle = (colors: IColors): StylesConfig => ({
+  container: (old: any) => ({
+    ...old,
+    zIndex: 200,
+    paddingLeft: "15px",
+    marginRight: "-5px",
+  }),
+  control: (old: any) => ({
+    ...old,
+    backgroundColor: "transparent",
+    border: "none",
+    paddingTop: "5px",
+  }),
+  singleValue: (old: any) => ({
+    ...old,
+    color: colors.navigationIconActive,
+    fontSize: "20px",
+  }),
+  indicatorSeparator: () => ({
+    display: "none",
+  }),
+  valueContainer: (old: any) => ({
+    ...old,
+    paddingRight: 0,
+    marginRight: "-5px",
+  }),
+  dropdownIndicator: (old: any) => ({
+    ...old,
+    color: colors.navigationIcon,
+  }),
+  placeholder: (old: any, state: any) => {
+    const active = state.hasValue;
+
+    return {
+      ...old,
+      color: active ? colors.navigationIconActive : colors.navigationIcon,
+      fontSize: "20px",
+    };
+  },
+});

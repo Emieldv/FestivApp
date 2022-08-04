@@ -1,5 +1,6 @@
 export interface IColors {
   background: string;
+  backgroundContrast: string;
 
   timerBackground: string;
   timerText: string;

@@ -19,6 +19,10 @@ export interface NavigationItem {
   baseUrl: string;
   routingUrl: string;
   component: FC;
+  pages?: {
+    value: string;
+    label: string;
+  }[];
 }
 
 export function useNavigationItems(): NavigationItem[] {
@@ -56,6 +60,7 @@ export function useNavigationItems(): NavigationItem[] {
       baseUrl: "/schedule",
       routingUrl: "/schedule/:dayId",
       component: Schedule,
+      pages: rawData.days.map((day) => ({ label: day.name, value: day.id })),
     },
     {
       name: "My line up",
@@ -64,6 +69,7 @@ export function useNavigationItems(): NavigationItem[] {
       baseUrl: "/lineup",
       routingUrl: "/lineup/:dayId",
       component: LineUp,
+      pages: rawData.days.map((day) => ({ label: day.name, value: day.id })),
     },
   ];
 

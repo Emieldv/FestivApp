@@ -12,6 +12,7 @@ import { TopNavigation } from "../components/navigation/Topnavigation";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 export const Home: FC = () => {
+  const onLine = window.navigator.onLine;
   const nextGig = useNextLikedGig();
   const { rawData, config } = useData();
 
@@ -24,13 +25,15 @@ export const Home: FC = () => {
     <>
       <TopNavigation />
       <Container>
-        <Banner>
-          <img src={config.banner} alt="Banner" />
-        </Banner>
-        {future && <Timer />}
-        {present && nextGig && <NextGig nextGig={nextGig} />}
-        {past && <EndMessage />}
-        {config.twitterUserName && (
+        <div>
+          <Banner>
+            <img src={config.banner} alt="Banner" />
+          </Banner>
+          {future && <Timer />}
+          {present && nextGig && <NextGig nextGig={nextGig} />}
+          {past && <EndMessage />}
+        </div>
+        {config.twitterUserName && onLine && (
           <TwitterEmbed>
             <TwitterTimelineEmbed
               sourceType="profile"
@@ -56,6 +59,11 @@ const Container = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
+
+  @media screen and (min-width: 39em) {
+    display: grid;
+    grid-template-columns: auto 400px;
+  }
 
   p {
     margin: 0;
@@ -85,4 +93,8 @@ const TwitterEmbed = styled.div`
   width: 95%;
   margin: 10px auto 0 auto;
   flex: 1;
+
+  @media screen and (min-width: 39em) {
+    margin: 0 auto;
+  }
 `;

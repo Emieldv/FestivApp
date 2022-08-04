@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { sizes } from "../../lib/constants";
+import { breakpoints, sizes } from "../../lib/constants";
 import {
   NavigationItem,
   useNavigationItems,
@@ -39,8 +39,7 @@ const Container = styled.div<ContainerProps>`
     1fr
   );
 
-  // TODO breakpoint constants
-  @media screen and (min-width: 40em) {
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) {
     display: none;
   }
 `;

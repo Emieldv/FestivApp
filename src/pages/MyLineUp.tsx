@@ -4,7 +4,7 @@ import { GigDetail } from "../components/myLineUp/GigDetail";
 import { BottomNavigation } from "../components/navigation/BottomNavigation";
 import { Header } from "../components/navigation/Header";
 import { TopNavigation } from "../components/navigation/Topnavigation";
-import { sizes } from "../lib/constants";
+import { breakpoints, sizes } from "../lib/constants";
 import { useGetDayLikes } from "../lib/hooks/useGetDayLikes";
 
 export const LineUp: FC = () => {
@@ -46,8 +46,8 @@ const Container = styled.div`
   gap: 5px;
   flex-direction: column;
 
-  @media screen and (min-width: 39em) {
-    padding: 5px 20px;
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) {
+    height: calc(100vh - ${sizes.mainNavigationHeight});
   }
 `;
 
@@ -60,6 +60,10 @@ const EmptyContainer = styled.div`
   align-items: center;
 
   h1 {
-    color: white;
+    color: ${({ theme }) => theme.backgroundContrast};
+  }
+
+  @media screen and (min-width: ${breakpoints.tabletPortrait}) {
+    height: calc(100vh - ${sizes.mainNavigationHeight});
   }
 `;
