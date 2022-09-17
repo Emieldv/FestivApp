@@ -6,8 +6,8 @@ interface AirtableData<Type> {
   loading: boolean;
 }
 
-const API = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_KEY}`;
-const BEARER = `Bearer ${process.env.REACT_APP_AIRTABLE_BEARER}`;
+const BASE_ID = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}`;
+const API_KEY = `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`;
 
 export function useAirTable<Type>(url: string, fields?: string[]) {
   const [state, setState] = useState<AirtableData<Type>>({
@@ -34,8 +34,8 @@ async function fetcher<Type>(
   url: string,
   filter: string | undefined
 ): Promise<AirtableData<Type>> {
-  const data = fetch(`${API}${url}${filter ? "?" + filter : ""}`, {
-    headers: { Authorization: BEARER },
+  const data = fetch(`${BASE_ID}${url}${filter ? "?" + filter : ""}`, {
+    headers: { Authorization: API_KEY },
   })
     .then((response) => response.json())
     .then(async (json) => {
@@ -47,9 +47,9 @@ async function fetcher<Type>(
           let recordsArray = json.records;
 
           await fetch(
-            `${API}${url}?offset=${json.offset}${filter ? "&" + filter : ""}`,
+            `${BASE_ID}${url}?offset=${json.offset}${filter ? "&" + filter : ""}`,
             {
-              headers: { Authorization: BEARER },
+              headers: { Authorization: API_KEY },
             }
           )
             .then((response) => response.json())
