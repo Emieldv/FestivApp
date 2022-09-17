@@ -18,8 +18,8 @@ https://airtable.com/shr8cic0WgWtPI3yo
 ### Add environment variables
 
 ```
-REACT_APP_AIRTABLE_KEY=
-REACT_APP_AIRTABLE_BEARER=
+REACT_APP_AIRTABLE_BASE_ID=
+REACT_APP_AIRTABLE_API_KEY=
 REACT_APP_SLOT_SIZE=
 ```
 

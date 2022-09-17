@@ -9,7 +9,6 @@ import { Timer } from "../components/home/Timer";
 import { NextGig } from "../components/home/NextGig";
 import { EndMessage } from "../components/home/EndMessage";
 import { TopNavigation } from "../components/navigation/Topnavigation";
-import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 export const Home: FC = () => {
   const onLine = window.navigator.onLine;
@@ -33,19 +32,6 @@ export const Home: FC = () => {
           {present && nextGig && <NextGig nextGig={nextGig} />}
           {past && <EndMessage />}
         </div>
-        {config.twitterUserName && onLine && (
-          <TwitterEmbed>
-            <TwitterTimelineEmbed
-              sourceType="profile"
-              screenName={config.twitterUserName}
-              theme="dark"
-              noFooter
-              noBorders
-              noScrollbar
-              autoHeight
-            />
-          </TwitterEmbed>
-        )}
       </Container>
       <BottomNavigation />
       {/* This image is always hidden, by getting this image at app start it gets cached immediately by the service worker */}
@@ -87,14 +73,4 @@ const Banner = styled.div`
 
 const LoadImage = styled.img`
   display: none;
-`;
-
-const TwitterEmbed = styled.div`
-  width: 95%;
-  margin: 10px auto 0 auto;
-  flex: 1;
-
-  @media screen and (min-width: 39em) {
-    margin: 0 auto;
-  }
 `;

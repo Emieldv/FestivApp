@@ -46,7 +46,9 @@ const Container = styled.div`
   height: calc(
     100vh - ${sizes.pageHeaderHeight} - ${sizes.mainNavigationHeight}
   );
-
+  height: calc(
+    100svh - ${sizes.pageHeaderHeight} - ${sizes.mainNavigationHeight}
+  );
   @media screen and (min-width: ${breakpoints.tabletPortrait}) {
     height: calc(100vh - ${sizes.mainNavigationHeight});
   }

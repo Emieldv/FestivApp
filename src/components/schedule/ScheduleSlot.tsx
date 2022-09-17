@@ -42,9 +42,9 @@ export const ScheduleSlot: FC<ScheduleSlotProps> = ({ band }) => {
         </p>
       </div>
       {liked ? (
-        <LikedIcon color={colors.slotSelectedText} onClick={handleLike} />
+        <LikedIcon color={colors.slotSelectedText} onClick={handleLike} width={20} />
       ) : (
-        <BookmarkIcon color={colors.slotText} onClick={handleLike} />
+        <BookmarkIcon color={colors.slotText} onClick={handleLike} width={ 20}/>
       )}
     </Slot>
   );

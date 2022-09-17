@@ -56,7 +56,7 @@ registerRoute(
 // Cache The incoming data from Airtable
 registerRoute(
   ({ url }) =>
-    url.pathname.startsWith(`/v0/${process.env.REACT_APP_AIRTABLE_KEY}/`),
+    url.pathname.startsWith(`/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/`),
   new NetworkFirst({
     cacheName: "airtableData",
     plugins: [
